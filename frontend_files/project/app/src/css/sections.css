@@ -1,0 +1,41 @@
+.single-row-container {
+  display: flex;
+  overflow-x: auto;
+  padding: 10px 0; /* تقليل padding */
+  gap: 10px; /* تقليل المسافة */
+  width: 96vw; /* تعديل العرض */
+  margin: auto;
+  scroll-snap-type: x mandatory;
+}
+.single-row-container::-webkit-scrollbar {
+  width: 8px;
+}
+.single-row-container::-webkit-scrollbar-thumb {
+  background: #ff7c37; 
+  border-radius: 10px; 
+}
+.single-row-container::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+.section{
+  display:flex;
+  flex-direction:column;
+  width : 100px;
+  height : 70px;
+  justify-content:center;
+  align-items:center;
+  padding:12px;
+  background-color:#F8F8F8;
+  border-radius:10px;
+  .section-icon{
+    font-size:24px;
+    color:#c74040;
+  }
+  .section-text{
+    font-size:16px;
+  }
+}
+.sections{
+  background : #F0F4F4;
+  margin-top:5px;
+}
