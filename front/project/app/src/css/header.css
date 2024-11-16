@@ -1,0 +1,68 @@
+*{
+  margin:0px;
+  padding:0px;
+  font-family: "Nunito", serif;
+  font-optical-sizing: auto;
+}
+.header{
+  width : 90vw;
+  height : 60px;
+  margin:auto;
+  background:none;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  .offcanva{
+    .offcanvas-start {
+      width: 80vw;
+      /* CSS للزر */
+      .offcanvasBtn {
+        background: none;
+        border: none;
+        color: #333333; 
+        font-size: 16px; /* حجم الخط */
+        cursor: pointer;
+        text-align: center;
+        padding: 8px 16px;
+        transition: color 0.3s, background-color 0.3s, transform 0.1s ease, box-shadow 0.1s ease;
+        display:flex;
+        align-items:center;
+        margin-bottom:13px;
+      }
+
+      .offcanvasBtn:hover {
+        color: #000000; /* تغيير اللون عند التمرير */
+        background-color: rgba(25, 118, 210, 0.08); /* خلفية شفافة عند التمرير */
+        border-radius: 4px; /* زوايا دائرية */
+      }
+
+      .offcanvasBtn:focus {
+        outline: none; /* إزالة الحدود عند التركيز */
+      }
+
+      .offcanvasBtn:active {
+        transform: scale(0.95); /* انكماش الزر عند الضغط */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* إضافة ظل عند الضغط على الزر */
+      }
+    }
+  }
+  .logo{
+    width : 100px;
+    height : 100px;
+    background: none;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    .logoContent{
+      width : 80%;
+      height : 80%;
+      background:transparent;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      img{
+        height:100%;
+      }
+    }
+  }
+}
