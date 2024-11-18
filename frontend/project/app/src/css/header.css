@@ -1,84 +1,148 @@
-*{
-  margin:0px;
-  padding:0px;
+* {
+  margin: 0;
+  padding: 0;
   font-family: "Nunito", serif;
   font-optical-sizing: auto;
 }
-.header{
-  width : 100vw;
-  height : 50px;
-  margin:auto;
-  margin-top:10px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
 
-  .contain{
-    width:94%;
-    height:100%;
-    border-radius:100px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background:#E4E0E1;
-    padding:10px;
-    padding-left:18px;
+.header {
+  width: 100vw;
+  height: 50px;
+  margin: auto;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contain {
+  width: 94%;
+  height: 100%;
+  border-radius: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #e4e0e1;
+  padding: 10px;
+  padding-left: 18px;
+}
+
+.contain-left {
+  flex-grow: 1;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.menu {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  color: #ab886d;
+}
+
+.contain-center {
+  flex-grow: 1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.logo {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  color: #ff7c37;
+  letter-spacing: 2px;
+  font-kerning: auto;
+  opacity: 0; /* مخفي عند البداية */
+  transform: scale(0.9); /* تصغير الحجم قليلاً */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* تأثير الانتقال */
+}
+
+.logo.show {
+  animation-name: show; /* تأثير الانتقال عند الظهور */
+  animation-duration: 0.8s; /* الزمن */
+  animation-fill-mode: forwards;
+}
+
+.logo.hide {
+  animation-name: hideMode; /* تأثير الاختفاء */
+  animation-duration: 0.8s; /* الزمن */
+  animation-fill-mode: forwards;
+}
+
+.message {
+  font-family: "Nunito", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #ff7c37;
+  white-space: nowrap;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-align: center;
+  opacity: 0; /* الرسالة مخفية عند البداية */
+  transform: scale(0.9); /* تصغير الحجم قليلاً */
+  animation-duration: 0.8s;
+  animation-fill-mode: forwards; /* الحفاظ على حالة الأنيميشن */
+}
+
+.message.show {
+  animation-name: show; /* تأثير الانتقال عند الظهور */
+}
+
+.message.hide {
+  animation-name: hideMode; /* تأثير الاختفاء */
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
-.contain-left{
-  flex-grow:1;
-  height:100%;
-  display:flex;
-  justify-content:flex-start;
-  align-items:center;
-  .menu{
-    height:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:22px;
-    color:#AB886D;
+@keyframes hideMode {
+  0% {
+    opacity: 1;
+    transform: scale(1);
   }
-}
-.contain-center{
-  flex-grow:1;
-  height:100%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  .logo{
-    font-family: "Bebas Neue", sans-serif;
-    font-size:30px;
-    font-weight:800;
-    color:#ff7c37;
-    letter-spacing:2px;
-    font-kerning:auto;
-  }
-}
-.contain-right{
-  flex-grow:1;
-  height:100%;
-  display:flex;
-  justify-content:flex-end;
-  align-items:center;
-  .meAvatae{
-    height:40px;
-    width:40px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:22px;
-    color:#AB886D;
-    border-radius:100px;
-    img{
-      height:inherit;
-      width:inherit;
-      border-radius:100px;
-
-    }
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
   }
 }
 
+.contain-right {
+  flex-grow: 1;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
 
+.meAvatar {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  color: #ab886d;
+  border-radius: 100px;
+}
 
+.meAvatar img {
+  height: inherit;
+  width: inherit;
+  border-radius: 100px;
+}
