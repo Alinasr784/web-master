@@ -1,4 +1,7 @@
 .home{
   min-width:100vw;
   min-height:100vh;
+  position:absolute;
+  top:0px;
+  background:#EEEEEE;
 }

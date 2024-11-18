@@ -5,64 +5,80 @@
   font-optical-sizing: auto;
 }
 .header{
-  width : 90vw;
-  height : 60px;
+  width : 100vw;
+  height : 50px;
   margin:auto;
-  background:none;
+  margin-top:10px;
   display:flex;
-  justify-content:space-between;
+  justify-content:center;
   align-items:center;
-  .offcanva{
-    .offcanvas-start {
-      width: 80vw;
-      /* CSS للزر */
-      .offcanvasBtn {
-        background: none;
-        border: none;
-        color: #333333; 
-        font-size: 16px; /* حجم الخط */
-        cursor: pointer;
-        text-align: center;
-        padding: 8px 16px;
-        transition: color 0.3s, background-color 0.3s, transform 0.1s ease, box-shadow 0.1s ease;
-        display:flex;
-        align-items:center;
-        margin-bottom:13px;
-      }
 
-      .offcanvasBtn:hover {
-        color: #000000; /* تغيير اللون عند التمرير */
-        background-color: rgba(25, 118, 210, 0.08); /* خلفية شفافة عند التمرير */
-        border-radius: 4px; /* زوايا دائرية */
-      }
-
-      .offcanvasBtn:focus {
-        outline: none; /* إزالة الحدود عند التركيز */
-      }
-
-      .offcanvasBtn:active {
-        transform: scale(0.95); /* انكماش الزر عند الضغط */
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* إضافة ظل عند الضغط على الزر */
-      }
-    }
+  .contain{
+    width:94%;
+    height:100%;
+    border-radius:100px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#E4E0E1;
+    padding:10px;
+    padding-left:18px;
   }
-  .logo{
-    width : 100px;
-    height : 100px;
-    background: none;
+}
+
+.contain-left{
+  flex-grow:1;
+  height:100%;
+  display:flex;
+  justify-content:flex-start;
+  align-items:center;
+  .menu{
+    height:100%;
     display:flex;
     justify-content:center;
     align-items:center;
-    .logoContent{
-      width : 80%;
-      height : 80%;
-      background:transparent;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      img{
-        height:100%;
-      }
+    font-size:22px;
+    color:#AB886D;
+  }
+}
+.contain-center{
+  flex-grow:1;
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  .logo{
+    font-family: "Bebas Neue", sans-serif;
+    font-size:30px;
+    font-weight:800;
+    color:#ff7c37;
+    letter-spacing:2px;
+    font-kerning:auto;
+  }
+}
+.contain-right{
+  flex-grow:1;
+  height:100%;
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  .meAvatae{
+    height:40px;
+    width:40px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:22px;
+    color:#AB886D;
+    border-radius:100px;
+    img{
+      height:inherit;
+      width:inherit;
+      border-radius:100px;
+
     }
   }
 }
+
+
+
