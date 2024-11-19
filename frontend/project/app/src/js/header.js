@@ -51,8 +51,7 @@ function Normal() {
     const tes = setTimeout(() => {
       showMessage(
         <div className="message">
-          Done Ali
-          <Lottie animationData={CheckMark} loop={false} height={50} width={50} />
+          <div className="messageText">Done Ali</div>
         </div>,
         3000,
         () => {

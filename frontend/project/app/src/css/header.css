@@ -117,11 +117,25 @@
   font-size: 24px;
   font-weight: 700;
   color: #ff7c37;
-  white-space: nowrap;
-  padding: 10px 20px;
-  border-radius: 8px;
   text-align: center;
   display : flex;
+  justify-content:center;
+  align-items:center;
+  max-width:100%;
+  max-height:50px;
+  white-space:nowrap;
+  .messageText{
+    margin: 0;
+    font-family:inherit;
+    font-size: inherit;
+  }
+  .messageIcon{
+    width:50px;
+    height:50px;
+    font-size : 30px;
+    padding:0;
+    margin:0;
+  }
 }
 
 .message.show {
