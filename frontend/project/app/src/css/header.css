@@ -13,6 +13,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position:fixed;
 }
 
 .contain {
@@ -60,20 +61,16 @@
   color: #ff7c37;
   letter-spacing: 2px;
   font-kerning: auto;
-  opacity: 0; /* مخفي عند البداية */
-  transform: scale(0.9); /* تصغير الحجم قليلاً */
-  transition: opacity 0.5s ease, transform 0.5s ease; /* تأثير الانتقال */
 }
-
 .logo.show {
   animation-name: show; /* تأثير الانتقال عند الظهور */
-  animation-duration: 0.8s; /* الزمن */
+  animation-duration : 0.8s;
   animation-fill-mode: forwards;
 }
 
 .logo.hide {
   animation-name: hideMode; /* تأثير الاختفاء */
-  animation-duration: 0.8s; /* الزمن */
+  animation-duration: 0.5s;
   animation-fill-mode: forwards;
 }
 
@@ -86,18 +83,18 @@
   padding: 10px 20px;
   border-radius: 8px;
   text-align: center;
-  opacity: 0; /* الرسالة مخفية عند البداية */
-  transform: scale(0.9); /* تصغير الحجم قليلاً */
-  animation-duration: 0.8s;
-  animation-fill-mode: forwards; /* الحفاظ على حالة الأنيميشن */
 }
 
 .message.show {
   animation-name: show; /* تأثير الانتقال عند الظهور */
+  animation-duration: 1.8s; /* الزمن */
+  animation-fill-mode: forwards;
 }
 
 .message.hide {
   animation-name: hideMode; /* تأثير الاختفاء */
+  animation-duration: 1.8s; /* الزمن */
+  animation-fill-mode: forwards;
 }
 
 @keyframes show {
@@ -145,4 +142,12 @@
   height: inherit;
   width: inherit;
   border-radius: 100px;
+}
+
+.meAvatar {
+  transition: transform 0.5s ease-in-out;
+}
+
+.meAvatar.rotate {
+  transform: rotate(360deg);
 }

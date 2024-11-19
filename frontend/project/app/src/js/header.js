@@ -14,19 +14,26 @@ function Normal() {
   const [message, setMessage] = useState(null); // نص الرسالة
   const [messageAction, setMessageAction] = useState(null); // دالة الرسالة
   const [messageClass, setMessageClass] = useState(""); // كلاس الرسالة للأنيميشن
+  const [avatarRotation, setAvatarRotation] = useState(0); // زاوية دوران الصورة
+
   const showMessage = (text, duration, action) => {
-    setMessage(text); // تعيين نص الرسالة
-    setMessageAction(() => action); // تعيين الدالة
-    setMessageClass("show"); // تطبيق كلاس الظهور
-    setLogoVisible(false); // إخفاء الشعار
+    setMessage(text);
+    setMessageAction(() => action);
+    setLogoVisible(false);
 
     setTimeout(() => {
-      setMessageClass("hide"); // تطبيق كلاس الاختفاء
+      setMessageClass("show");
+    }, 0);
+
+    const hideTimeout = setTimeout(() => {
+      setMessageClass("hide");
       setTimeout(() => {
-        setMessage(null); // إزالة الرسالة
-        setLogoVisible(true); // إعادة عرض الشعار
-      }, 500); // وقت الأنيميشن
+        setMessage(null);
+        setLogoVisible(true);
+      }, 500);
     }, duration);
+
+    return () => clearTimeout(hideTimeout);
   };
 
   useEffect(() => {
@@ -40,11 +47,39 @@ function Normal() {
       });
     }, 8000);
 
-    // تنظيف التايمر عند إعادة التقديم أو عند إلغاء مكون
-    return () => clearTimeout(tes);
+    return () => {
+      clearTimeout(tes);
+    };
   }, []);
 
-    
+  // تحديث دوران الصورة بناءً على التمرير
+  useEffect(() => {
+    let lastScrollPosition = 0;
+
+    const handleScroll = () => {
+      const currentScrollPosition = window.scrollY;
+      const maxScrollPosition =
+        document.documentElement.scrollHeight - window.innerHeight;
+
+      // التحقق من إذا كنا عند القمة أو القاع
+      if (currentScrollPosition <= 0 || currentScrollPosition >= maxScrollPosition) {
+        return; // لا يتم الدوران إذا كنا عند القمة أو القاع
+      }
+
+      // حساب الفرق في التمرير
+      const scrollDifference = currentScrollPosition - lastScrollPosition;
+
+      if (scrollDifference !== 0) {
+        // تحديث زاوية الدوران بناءً على الفرق
+        setAvatarRotation((prev) => prev + scrollDifference * -(0.001/0.005));
+        lastScrollPosition = currentScrollPosition;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll); // إضافة استماع للتمرير
+    return () => window.removeEventListener("scroll", handleScroll); // تنظيف الاستماع
+  }, []);
+
   return (
     <div className="contain">
       <div className="contain-left">
@@ -55,10 +90,7 @@ function Normal() {
 
       <div className="contain-center">
         {message ? (
-          <div
-            className={`message ${messageClass}`}
-            onClick={messageAction}
-          >
+          <div className={`message ${messageClass}`} onClick={messageAction}>
             {message}
           </div>
         ) : (
@@ -69,7 +101,13 @@ function Normal() {
       </div>
 
       <div className="contain-right">
-        <div className="meAvatar">
+        <div
+          className="meAvatar"
+          style={{
+            transform: `rotate(${avatarRotation}deg)`, // تطبيق الدوران بناءً على الحالة
+            transition: "transform 0.1s linear", // تأثير سلس للدوران
+          }}
+        >
           <img src="/assets/images/Profile.png" alt="Profile" />
         </div>
       </div>
@@ -85,4 +123,4 @@ function Header() {
   );
 }
 
-export default Header; 
+export default Header;
