@@ -305,3 +305,6 @@
 .meAvatar.rotate {
   transform: rotate(360deg);
 }
+.offcanvas{
+  width : 70vw !important;
+}

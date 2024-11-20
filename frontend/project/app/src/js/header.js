@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "../css/header.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import Offcanvas from "react-bootstrap/Offcanvas";
 
 function Normal() {
   const [logoVisible, setLogoVisible] = useState(true); // للتحكم في عرض الشعار
@@ -18,7 +18,29 @@ function Normal() {
   const [messageClass, setMessageClass] = useState(""); // كلاس الرسالة للأنيميشن
   const [avatarRotation, setAvatarRotation] = useState(0); // زاوية دوران الصورة
   const [isSearchMode, setIsSearchMode] = useState(false); // التحكم في وضع البحث
+  const [offcanvas, setOffcanvas] = useState(false);
 
+  const handleShowCanvas = () => setOffcanvas(true);
+  const handleCloseCanvas = () => setOffcanvas(false);
+  const canvas = () => {
+    return (
+      <>
+        <Offcanvas
+          show={offcanvas}
+          onHide={handleCloseCanvas}
+          backdropClassName="Offcanvas"
+        >
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            Some text as placeholder. In real life you can have the elements you
+            have chosen. Like, text, images, lists, etc.
+          </Offcanvas.Body>
+        </Offcanvas>
+      </>
+    );
+  };
   // Notification
   const showMessage = (jsxContent, duration, action) => {
     setMessage(jsxContent); // تمرير JSX بدل النص
@@ -39,7 +61,56 @@ function Normal() {
 
     return () => clearTimeout(hideTimeout);
   };
+  // Handle horizontal scroll for Offcanvas
+  useEffect(() => {
+    let touchStartX = 0;
+    let currentX = 0;
+    let offcanvasElement = null;
+    const maxOffcanvasMovement = window.innerWidth * 0.7; // 70vw
 
+    const handleTouchStart = (e) => {
+      touchStartX = e.touches[0].clientX;
+      offcanvasElement = document.querySelector(".offcanvas");
+    };
+
+    const handleTouchMove = (e) => {
+      currentX = e.touches[0].clientX;
+      const deltaX = currentX - touchStartX;
+
+      if (offcanvasElement) {
+        offcanvasElement.style.transition = "none";
+        if (deltaX <= 0) {
+          // السماح فقط بالسحب لليسار
+          offcanvasElement.style.transform = `translateX(${Math.max(deltaX, -maxOffcanvasMovement)}px)`;
+        }
+      }
+    };
+
+    const handleTouchEnd = () => {
+      const deltaX = currentX - touchStartX;
+
+      if (offcanvasElement) {
+        offcanvasElement.style.transition = "";
+        if (deltaX < -50) {
+          // إغلاق فقط عند السحب لليسار
+          offcanvasElement.style.transform = "translateX(-100%)";
+          handleCloseCanvas(); // إغلاق
+        } else {
+          offcanvasElement.style.transform = "";
+        }
+      }
+    };
+
+    window.addEventListener("touchstart", handleTouchStart);
+    window.addEventListener("touchmove", handleTouchMove);
+    window.addEventListener("touchend", handleTouchEnd);
+
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, []);
   // Notification Examples
   const addToCartMessage = () => {
     showMessage(
@@ -59,9 +130,7 @@ function Normal() {
 
   const welcomeMessage = () => {
     showMessage(
-      <div className="message">
-        Welcome Ali 
-      </div>,
+      <div className="message">Welcome Ali</div>,
       2000, // وقت عرض الرسالة (5 ثواني)
       () => {
         console.log("Welcome message clicked!");
@@ -69,8 +138,7 @@ function Normal() {
     );
   };
 
-  useEffect(()=>addToCartMessage(),[])
-
+  useEffect(() => addToCartMessage(), []);
 
   // Handle clicks outside the header to exit search mode
   useEffect(() => {
@@ -159,7 +227,10 @@ function Normal() {
         <>
           <div className="contain-left">
             <div className="menu">
-              <FontAwesomeIcon icon={faBars} />
+              <FontAwesomeIcon
+                icon={faBars}
+                onClick={() => handleShowCanvas()}
+              />
             </div>
           </div>
 
@@ -189,6 +260,7 @@ function Normal() {
               <img src="/assets/images/Profile.png" alt="Profile" />
             </div>
           </div>
+          {offcanvas && canvas()}
         </>
       )}
     </div>
