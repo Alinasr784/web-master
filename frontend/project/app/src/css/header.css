@@ -50,7 +50,7 @@
   border: none;
   outline: none;
   font-size: 16px;
-  padding: 0 50px 0 40px; /* مساحة لأيقونة البحث */
+  padding: 0 50px 0 10px; /* مساحة لأيقونة البحث */
   border-radius: 50px;
   background-color: transparent;
   color: #333;
@@ -60,7 +60,7 @@
   font-size: 18px;
   color: #ab886d;
   position: absolute;
-  left: 15px;
+  left: 0px;
 }
 
 
@@ -114,29 +114,130 @@
 
 .message {
   font-family: "Nunito", sans-serif;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   color: #ff7c37;
   text-align: center;
-  display : flex;
-  justify-content:center;
-  align-items:center;
-  max-width:100%;
-  max-height:50px;
-  white-space:nowrap;
-  .messageText{
-    margin: 0;
-    font-family:inherit;
-    font-size: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 2;
+  position: relative;
+  height: 100px;
+  max-width: 200px;
+  overflow: hidden;
+}
+
+.messageText.card {
+  font: inherit;
+  color:inherit ;
+  background : none;
+  border:none;
+  white-space : nowrap;
+  margin-right: 8px; /* مسافة بين النص والأيقونات */
+  text-align: left;
+  animation: TextMoveLeft 2s ease-in-out 1.5s forwards; /* تأخير الحركة لتزامنها مع المنتج */
+}
+.messageIcon.card {
+  position: relative;
+  width: 100px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  background : none;
+  border:none;
+  align-items: center;
+}
+/* أيقونة المنتج */
+.productIcon {
+  position: absolute;
+  top: -30px; /* ارتفاع السقوط */
+  left: 60px; /* بداية المنتج */
+  font-size: 15px; /* حجم صغير للمنتج */
+  color: #ff7c37;
+  animation: dropIntoCart 2s ease-in-out forwards;
+}
+/* أيقونة عربة التسوق */
+.cartIcon {
+  position: absolute;
+  bottom: 10;
+  left: 29px;
+  font-size: 22px; /* حجم مناسب للعربة */
+  color: #333;
+  animation: cartMoveLeft 2s ease-in-out 1.5s forwards; /* تأخير الحركة لتزامنها مع المنتج */
+}
+/* حركة سقوط المنتج */
+@keyframes dropIntoCart {
+  0% {
+    top: -80px; /* بدء أعلى بقليل */
+    opacity: 0;
+    transform: rotate(0deg);
   }
-  .messageIcon{
-    width:50px;
-    height:50px;
-    font-size : 30px;
-    padding:0;
-    margin:0;
+  30% {
+    top: 0;
+    opacity: 1;
+    transform: rotate(30deg); /* تكبير قليل أثناء الدخول */
+  }
+  50% {
+    top: 10px;
+    opacity: 1;
+    transform: scale(0.9) rotate(45deg);
+  }
+  60% {
+    top: 5px; /* تأثير الارتداد */
+    left: 35px;
+    transform: scale(1) rotate(70deg);
+  }
+  80% {
+    top: 10px; 
+    left: 40px; 
+    opacity: 1;
+    transform: scale(1) rotate(90deg);
+  }
+  90% {
+    top: 11px;
+    left: 43px;
+    transform : rotate(110deg)
+  }
+  100%{
+    top: 13px;
+    left: 49px;
+    opacity:0;
+    transform: rotate(70deg)
   }
 }
+/* حركة عربة التسوق */
+@keyframes cartMoveLeft {
+  0% {
+    transform: translateX(0) scale(1);
+  }
+  50% {
+    transform: translateX(25px); /* تكبير قليل عند التحرك */
+  }
+  70%{
+    transform: translateX(18px); /* تكبير قليل عند التحرك */
+  }
+  100% {
+    transform: translateX(100px) scale(1);
+  }
+}
+@keyframes TextMoveLeft {
+  0% {
+    transform: translateX(0) scale(1);
+  }
+  50% {
+    transform: translateX(25px); /* تكبير قليل عند التحرك */
+  }
+  100% {
+    transform: translateX(30px) scale(1);
+  }
+}
+
+
+
+
+
+
 
 .message.show {
   animation-name: show;

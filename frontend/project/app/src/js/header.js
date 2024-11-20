@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
-import Lottie from "lottie-react"; // استيراد المكتبة
-import CheckMark from "../animations/checkmark.json"; // مسار ملف الأنيميشن
+import {
+  faBars,
+  faSearch,
+  faBox,
+  faShoppingCart,
+  faSmile,
+} from "@fortawesome/free-solid-svg-icons";
 import "../css/header.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
@@ -17,7 +21,7 @@ function Normal() {
 
   // Notification
   const showMessage = (jsxContent, duration, action) => {
-    setMessage(jsxContent);  // تمرير JSX بدل النص
+    setMessage(jsxContent); // تمرير JSX بدل النص
     setMessageAction(() => action);
     setLogoVisible(false);
 
@@ -36,38 +40,66 @@ function Normal() {
     return () => clearTimeout(hideTimeout);
   };
 
-  // Notification Tester
-  useEffect(() => {
+  // Notification Examples
+  const addToCartMessage = () => {
     showMessage(
       <div className="message">
-        Added To Cart
+        <div className="messageText card">Product Added</div>
+        <div className="messageIcon card">
+          <FontAwesomeIcon icon={faBox} className="productIcon" />
+          <FontAwesomeIcon icon={faShoppingCart} className="cartIcon" />
+        </div>
       </div>,
-      3000,
+      4000,
       () => {
         console.log("Message clicked!");
-      }
+      },
     );
+  };
 
-    const tes = setTimeout(() => {
-      showMessage(
-        <div className="message">
-          <div className="messageText">Done Ali</div>
-        </div>,
-        3000,
-        () => {
-          console.log("Message clicked!");
-        }
-      );
-    }, 8000);
+  const welcomeMessage = () => {
+    showMessage(
+      <div className="message">
+        Welcome Ali 
+      </div>,
+      2000, // وقت عرض الرسالة (5 ثواني)
+      () => {
+        console.log("Welcome message clicked!");
+      },
+    );
+  };
 
+  useEffect(()=>addToCartMessage(),[])
+
+
+  // Handle clicks outside the header to exit search mode
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      const clickedElement = e.target;
+
+      // إذا لم يكن العنصر جزءًا من البحث أو الصورة الرمزية أو القائمة، أعد الهيدر العادي
+      if (
+        !clickedElement.closest(".meAvatar") &&
+        !clickedElement.closest(".menu") &&
+        !clickedElement.closest(".searchBar")
+      ) {
+        setIsSearchMode(false);
+      }
+    };
+
+    // إضافة استماع للنقر على مستوى الصفحة
+    window.addEventListener("click", handleOutsideClick);
     return () => {
-      clearTimeout(tes);
+      // تنظيف الاستماع عند إلغاء المكون
+      window.removeEventListener("click", handleOutsideClick);
     };
   }, []);
 
   // Handle double-click to toggle search mode
   const handleDoubleClick = (e) => {
     const clickedElement = e.target;
+
+    // تفعيل وضع البحث إذا لم يكن الضغط على القائمة أو الصورة الرمزية
     if (
       !clickedElement.closest(".meAvatar") &&
       !clickedElement.closest(".menu")
@@ -83,6 +115,38 @@ function Normal() {
       <input type="text" placeholder="Search..." />
     </div>
   );
+
+  // Avatar rotate
+  useEffect(() => {
+    let lastScrollPosition = 0;
+
+    const handleScroll = () => {
+      const currentScrollPosition = window.scrollY;
+      const maxScrollPosition =
+        document.documentElement.scrollHeight - window.innerHeight;
+
+      // التحقق من إذا كنا عند القمة أو القاع
+      if (
+        currentScrollPosition <= 0 ||
+        currentScrollPosition >= maxScrollPosition
+      ) {
+        return; // لا يتم الدوران إذا كنا عند القمة أو القاع
+      }
+
+      // حساب الفرق في التمرير
+      const scrollDifference = currentScrollPosition - lastScrollPosition;
+
+      if (scrollDifference !== 0) {
+        // تحويل التمرير إلى درجة دوران بناءً على التغيير في التمرير
+        const rotationChange = scrollDifference * (0.0001 / 0.0005); // 0.1deg لكل 0.5px
+        setAvatarRotation((prev) => prev + rotationChange);
+        lastScrollPosition = currentScrollPosition; // تحديث آخر موقع تم التمرير منه
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll); // إضافة استماع للتمرير
+    return () => window.removeEventListener("scroll", handleScroll); // تنظيف الاستماع
+  }, []);
 
   return (
     <div
