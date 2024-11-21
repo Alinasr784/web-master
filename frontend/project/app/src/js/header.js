@@ -30,7 +30,7 @@ function Normal() {
           onHide={handleCloseCanvas}
           backdropClassName="Offcanvas"
         >
-          <Offcanvas.Header closeButton>
+          <Offcanvas.Header>
             <Offcanvas.Title>Offcanvas</Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
@@ -65,39 +65,52 @@ function Normal() {
   useEffect(() => {
     let touchStartX = 0;
     let currentX = 0;
-    let offcanvasElement = null;
-    const maxOffcanvasMovement = window.innerWidth * 0.7; // 70vw
+    const activationThreshold = 100; // المسافة اللازمة لتنفيذ الفتح/الإغلاق
+    const maxOffcanvasMovement = window.innerWidth * 0.7; // 70% من العرض
 
     const handleTouchStart = (e) => {
       touchStartX = e.touches[0].clientX;
-      offcanvasElement = document.querySelector(".offcanvas");
     };
 
     const handleTouchMove = (e) => {
       currentX = e.touches[0].clientX;
       const deltaX = currentX - touchStartX;
 
-      if (offcanvasElement) {
-        offcanvasElement.style.transition = "none";
-        if (deltaX <= 0) {
-          // السماح فقط بالسحب لليسار
-          offcanvasElement.style.transform = `translateX(${Math.max(deltaX, -maxOffcanvasMovement)}px)`;
+      const offcanvasElement = document.querySelector(".offcanvas");
+      if (!offcanvas && deltaX > 0) {
+        // السحب يمينًا لفتح
+        const translateValue = Math.min(deltaX, maxOffcanvasMovement);
+        if (offcanvasElement) {
+          offcanvasElement.style.transition = "none";
+          offcanvasElement.style.transform = `translateX(${translateValue}px)`;
+        }
+      } else if (offcanvas && deltaX < 0) {
+        // السحب يسارًا للإغلاق
+        const translateValue = Math.max(deltaX, -maxOffcanvasMovement);
+        if (offcanvasElement) {
+          offcanvasElement.style.transition = "none";
+          offcanvasElement.style.transform = `translateX(${translateValue}px)`;
         }
       }
     };
 
     const handleTouchEnd = () => {
       const deltaX = currentX - touchStartX;
+      const offcanvasElement = document.querySelector(".offcanvas");
+
+      if (!offcanvas && deltaX > activationThreshold) {
+        // فتح إذا تجاوز المستخدم العتبة
+        setOffcanvas(true);
+      } else if (offcanvas && deltaX < -activationThreshold) {
+        // إغلاق إذا تجاوز المستخدم العتبة
+        setOffcanvas(false);
+      }
 
       if (offcanvasElement) {
-        offcanvasElement.style.transition = "";
-        if (deltaX < -50) {
-          // إغلاق فقط عند السحب لليسار
-          offcanvasElement.style.transform = "translateX(-100%)";
-          handleCloseCanvas(); // إغلاق
-        } else {
-          offcanvasElement.style.transform = "";
-        }
+        offcanvasElement.style.transition = ""; // استعادة الانتقالات
+        offcanvasElement.style.transform = offcanvas
+          ? "translateX(0)"
+          : "translateX(-100%)";
       }
     };
 
@@ -110,7 +123,7 @@ function Normal() {
       window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("touchend", handleTouchEnd);
     };
-  }, []);
+  }, [offcanvas]);
   // Notification Examples
   const addToCartMessage = () => {
     showMessage(

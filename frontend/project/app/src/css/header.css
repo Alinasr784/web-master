@@ -308,3 +308,11 @@
 .offcanvas{
   width : 70vw !important;
 }
+.offcanvas {
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.offcanvas.open {
+  transform: translateX(0);
+}
