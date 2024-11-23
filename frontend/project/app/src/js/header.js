@@ -19,7 +19,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "../css/header.css";
-
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 function Normal() {
   const [logoVisible, setLogoVisible] = useState(true); // للتحكم في عرض الشعار
   const [message, setMessage] = useState(null); // JSX للرسالة
@@ -28,6 +28,7 @@ function Normal() {
   const [avatarRotation, setAvatarRotation] = useState(0); // زاوية دوران الصورة
   const [isSearchMode, setIsSearchMode] = useState(false); // التحكم في وضع البحث
   const [offcanvas, setOffcanvas] = useState(false);
+  const [user, setUser] = useState(null); // لحفظ حالة المستخدم
 
   const handleShowCanvas = () => setOffcanvas(true);
   const handleCloseCanvas = () => setOffcanvas(false);
@@ -65,7 +66,7 @@ function Normal() {
                   icon={faSignInAlt}
                   className="menu-icon login-icon"
                 />
-                <span>Login</span>
+                <span>{user ? "Logout" : "Login"}</span>
               </button>
             </div>
           </Offcanvas.Body>
@@ -73,6 +74,15 @@ function Normal() {
       </>
     );
   };
+
+  //Login check
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser); // إذا كان هناك مستخدم مسجل دخول، سيُحدث الحالة
+    });
+    return () => unsubscribe(); // التنظيف عند إزالة المكون
+  }, []);
 
   // Notification
   const showMessage = (jsxContent, duration, action) => {
@@ -296,38 +306,36 @@ function Normal() {
           </div>
 
           <div className="contain-right">
-            <div
-              className="meAvatar dropdown"
-              style={{
-                transform: `rotate(${avatarRotation}deg)`,
-                transition: "transform 0.1s linear",
-              }}
-            >
-              <img
-                src="/assets/images/Profile.png"
-                alt="Profile"
-                className="dropdown-toggle"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              />
-              <ul className="dropdown-menu">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    <FontAwesomeIcon icon={faUser} style={{ marginRight: "10px" }} /> Profile 
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    <FontAwesomeIcon icon={faCogs} style={{ marginRight: "10px" }} /> Wishlist 
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    <FontAwesomeIcon icon={faEllipsisH} style={{ marginRight: "10px" }} /> Orders
-                  </a>
-                </li>
-              </ul>
-            </div>
+            {user ? (
+              <div className="meAvatar dropdown">
+                <img
+                  src="/assets/images/Profile.png"
+                  alt="Profile"
+                  className="dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                />
+                <ul className="dropdown-menu">
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      <FontAwesomeIcon icon={faUser} style={{ marginRight: "10px" }} /> Profile
+                    </a>
+                  </li>
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      <FontAwesomeIcon icon={faCogs} style={{ marginRight: "10px" }} /> Wishlist
+                    </a>
+                  </li>
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      <FontAwesomeIcon icon={faEllipsisH} style={{ marginRight: "10px" }} /> Orders
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+            <div>Login</div>
+            )}
           </div>
           {offcanvas && canvas()}
         </>
