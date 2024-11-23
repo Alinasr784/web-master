@@ -6,10 +6,19 @@ import {
   faBox,
   faShoppingCart,
   faSmile,
+  faHome,
+  faPalette,
+  faShapes,
+  faEnvelope,
+  faSignInAlt,
+  faUser,
+  faCogs,
+  faEllipsisH,
 } from "@fortawesome/free-solid-svg-icons";
-import "../css/header.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import "../css/header.css";
 
 function Normal() {
   const [logoVisible, setLogoVisible] = useState(true); // للتحكم في عرض الشعار
@@ -31,16 +40,40 @@ function Normal() {
           backdropClassName="Offcanvas"
         >
           <Offcanvas.Header>
-            <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+            <Offcanvas.Title className="navTitle">Brand AD</Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
-            Some text as placeholder. In real life you can have the elements you
-            have chosen. Like, text, images, lists, etc.
+            <div className="menu">
+              <button className="menu-item">
+                <FontAwesomeIcon icon={faHome} className="menu-icon" />
+                <span>Home page</span>
+              </button>
+              <button className="menu-item">
+                <FontAwesomeIcon icon={faPalette} className="menu-icon" />
+                <span>Your designs</span>
+              </button>
+              <button className="menu-item">
+                <FontAwesomeIcon icon={faShapes} className="menu-icon" />
+                <span>Ready made designs</span>
+              </button>
+              <button className="menu-item">
+                <FontAwesomeIcon icon={faEnvelope} className="menu-icon" />
+                <span>Contact us</span>
+              </button>
+              <button className="menu-item login">
+                <FontAwesomeIcon
+                  icon={faSignInAlt}
+                  className="menu-icon login-icon"
+                />
+                <span>Login</span>
+              </button>
+            </div>
           </Offcanvas.Body>
         </Offcanvas>
       </>
     );
   };
+
   // Notification
   const showMessage = (jsxContent, duration, action) => {
     setMessage(jsxContent); // تمرير JSX بدل النص
@@ -239,7 +272,7 @@ function Normal() {
       ) : (
         <>
           <div className="contain-left">
-            <div className="menu">
+            <div className="menunav">
               <FontAwesomeIcon
                 icon={faBars}
                 onClick={() => handleShowCanvas()}
@@ -257,20 +290,43 @@ function Normal() {
               </div>
             ) : (
               <div className={`logo ${logoVisible ? "show" : "hide"}`}>
-                PIZZA Time
+                Brand Ad
               </div>
             )}
           </div>
 
           <div className="contain-right">
             <div
-              className="meAvatar"
+              className="meAvatar dropdown"
               style={{
                 transform: `rotate(${avatarRotation}deg)`,
                 transition: "transform 0.1s linear",
               }}
             >
-              <img src="/assets/images/Profile.png" alt="Profile" />
+              <img
+                src="/assets/images/Profile.png"
+                alt="Profile"
+                className="dropdown-toggle"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              />
+              <ul className="dropdown-menu">
+                <li>
+                  <a className="dropdown-item" href="#">
+                    <FontAwesomeIcon icon={faUser} style={{ marginRight: "10px" }} /> Action
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#">
+                    <FontAwesomeIcon icon={faCogs} style={{ marginRight: "10px" }} /> Another action
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#">
+                    <FontAwesomeIcon icon={faEllipsisH} style={{ marginRight: "10px" }} /> Something else here
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
           {offcanvas && canvas()}

@@ -1,3 +1,6 @@
+body {
+  font-family: "Nunito", sans-serif;
+}
 * {
   margin: 0;
   padding: 0;
@@ -73,7 +76,7 @@
   align-items: center;
 }
 
-.menu {
+.menunav {
   height: 100%;
   display: flex;
   justify-content: center;
@@ -315,4 +318,133 @@
 
 .offcanvas.open {
   transform: translateX(0);
+}
+.navTitle{
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 30px !important;
+  font-weight: 800 !important;
+  color: #ff7c37 !important;
+  letter-spacing: 2px !important;
+  font-kerning: auto !important;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  font-family: "Nunito", sans-serif !important;
+}
+.menu-item {
+  white-space: nowrap;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  background-color: #FFF6F0; /* خلفية فاتحة متناسقة مع البرتقالي */
+  color: #333333; /* نص داكن */
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: none;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu-item:hover {
+  transform: scale(1.05);
+  background-color: #FF5737; /* برتقالي داكن للتفاعل */
+  color: #FFFFFF; /* نص أبيض */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* تأثير ظل خفيف */
+}
+
+.menu-icon {
+  margin-right: 12px;
+  font-size: 20px;
+  color: #FF7C37; /* نفس اللون الأساسي للأيقونة */
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.menu-item:hover .menu-icon {
+  transform: rotate(360deg);
+  color: #FFFFFF; /* الأيقونة تصبح بيضاء عند التحويم */
+}
+span , a{
+  font-family: "Nunito", sans-serif !important;
+}
+.login {
+  position: absolute;
+  bottom: 15px;
+  width: 240px;
+  padding: 12px 16px;
+  text-align: center;
+  background-color: #FF7C37; /* اللون الأساسي */
+  color: #FFFFFF; /* لون النص أبيض */
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.login:hover {
+  background-color: #FF5737; /* برتقالي داكن عند التحويم */
+  transform: scale(1.05);
+}
+
+.login .login-icon {
+  color: #2c3e50; /* لون غامق يتناسق مع اللون الأساسي */
+  font-size: 18px; /* حجم مناسب */
+  margin-right: 8px; /* مسافة بين الأيقونة والنص */
+}
+/* تنسيق قائمة الدروب داون */
+.dropdown-menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 180px;
+  background-color: #f8f9fa; /* لون خلفية محايد */
+  border: 1px solid #ddd;   /* حافة خفيفة */
+  border-radius: 5px;       /* حواف دائرية */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: none;
+  z-index: 1000;
+}
+
+/* عند التمرير على الدروب داون */
+.dropdown-menu.show {
+  display: block;
+}
+
+/* تنسيق العناصر داخل القائمة */
+.dropdown-item {
+  padding: 12px 20px;
+  color: #495057; /* لون نص رمادي دافئ */
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* عند التمرير فوق العنصر */
+.dropdown-item:hover {
+  background-color: #007bff; /* لون خلفية أزرق */
+  color: #fff; /* تغيير اللون للنص عند التمرير */
+}
+
+/* عند الضغط على العنصر */
+.dropdown-item:active {
+  background-color: #0056b3; /* خلفية داكنة عند الضغط */
+}
+
+/* إضافة أيقونة بجانب النص */
+.dropdown-item i {
+  margin-right: 10px; /* المسافة بين الأيقونة والنص */
+  font-size: 16px; /* حجم الأيقونة */
 }
