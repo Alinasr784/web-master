@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../css/allMenu.css";
+import "../css/products.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHeart,
@@ -17,7 +17,8 @@ function products() {
       name: "beautiful cat",
       des: "description for this cat",
       price: 150,
-      discount: 180
+      discount: 180,
+      stock : 2
     },
     {
       id: 2,
@@ -25,7 +26,8 @@ function products() {
       name: "beautiful cat",
       des: "description for this cat",
       price: 150,
-      discount: 180
+      discount: 180,
+      stock : 2
     },
     {
       id: 3,
@@ -33,7 +35,17 @@ function products() {
       name: "beautiful cat",
       des: "description for this cat",
       price: 150,
-      discount: 180
+      discount: 180,
+      stock : 2
+    },
+    {
+      id: 3,
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8WW-P0tTnrn196I6Oeki2ZuvbjTrJP8HH4jeAZHMo9Q&s",
+      name: "beautiful cat",
+      des: "description for this cat",
+      price: 150,
+      discount: 180,
+      stock : 2
     }
   ];
 }
@@ -85,22 +97,8 @@ function BootCard(props) {
       <img src={props.img} alt="Pizza" />
       <div className="card-n-title">{props.name}</div>
       <div className="card-n-text">{props.des}</div>
-      <div className="card-n-discount">{props.discount}</div>
+      <div className="card-n-discount">{props.discount} EGP</div>
       <div className="card-n-price">{props.price} EGP</div>
-      <div className="card-n-btns">
-        <div className="buttons">
-          <button
-            className={`cart-button ${addedToCart ? "clicked" : ""}`}
-            onClick={toggleCart}
-          >
-            <span className={addedToCart ? "added" : "add-to-cart"}>
-              {addedToCart ? "Added" : "Add to cart"}
-            </span>
-            <FontAwesomeIcon icon={faShoppingCart} className="fa-shopping-cart" />
-            <FontAwesomeIcon icon={faSquare} className="fa-square" />
-          </button>
-        </div>
-      </div>
     </div>
   );
 }
