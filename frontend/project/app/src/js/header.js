@@ -313,17 +313,17 @@ function Normal() {
               <ul className="dropdown-menu">
                 <li>
                   <a className="dropdown-item" href="#">
-                    <FontAwesomeIcon icon={faUser} style={{ marginRight: "10px" }} /> Action
+                    <FontAwesomeIcon icon={faUser} style={{ marginRight: "10px" }} /> Profile 
                   </a>
                 </li>
                 <li>
                   <a className="dropdown-item" href="#">
-                    <FontAwesomeIcon icon={faCogs} style={{ marginRight: "10px" }} /> Another action
+                    <FontAwesomeIcon icon={faCogs} style={{ marginRight: "10px" }} /> Wishlist 
                   </a>
                 </li>
                 <li>
                   <a className="dropdown-item" href="#">
-                    <FontAwesomeIcon icon={faEllipsisH} style={{ marginRight: "10px" }} /> Something else here
+                    <FontAwesomeIcon icon={faEllipsisH} style={{ marginRight: "10px" }} /> Orders
                   </a>
                 </li>
               </ul>

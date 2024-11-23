@@ -1,58 +1,62 @@
-.carousel{
-  width:100vw;
-  height:180px;
-  #carouselBtn{
-    max-width:5px;
-    height:5px;
-    border-radius:1000px;
-    background:#F8F8F8;
-    border:none;
-    cursor:pointer;
-    text-align:center;
-    display:flex;
-    align-items:center;
-    transition:color 0.3s,background-color 0.3s,transform 0.1s ease,box-shadow 0.1s ease;
-    &:hover{
-      background-color:#ff7c37;
-    }
-    &:focus{
-      outline:none;
-      background-color:#ff7c37;
-    }
-    &:active{
-      background-color : #ff7c37;
-    }
-  }
-  .carousel-item{
-    width:100vw;
-    height:180px;
-    overflow:hidden;
-    .bannar{
-      height:180px;
-      width:100%;
-      background-size:cover;
-      background-position:center;
-    }
-  }
-  .carousel-control-prev,.carousel-control-next{
-    color:black ;
-    width : 20px;
-    height:20px;
-    border-radius:50px;
-    background-color:white;
-    font-size:10px;
-    display:flex;
-    justify-content:center;
-    align-content:center;
-    align-items:center;
-    float:center;
-    /*position:center;*/
-    top:85px;
-  }
-  .carousel-control-prev{
-    left:10px;
-  }
-  .carousel-control-next{
-    right:10px;
-  }
+.carousel-container {
+  width: 94vw;
+  height: 180px;
+  margin: auto;
+  margin-top: 65px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.carousel .carousel-indicators button {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #f8f8f8;
+  border: none;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.carousel .carousel-indicators .active {
+  background-color: #ff7c37;
+}
+
+.carousel .carousel-inner {
+  width: 100%;
+  height: 180px;
+}
+
+.carousel .carousel-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.carousel .carousel-control-prev,
+.carousel .carousel-control-next {
+  width: 20px;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #000;
+  font-size :10px;
+}
+
+.carousel .carousel-control-prev:hover,
+.carousel .carousel-control-next:hover {
+  background-color: rgba(255, 124, 55, 0.8);
+}
+
+.carousel .carousel-control-prev {
+  left: 10px;
+}
+
+.carousel .carousel-control-next {
+  right: 10px;
 }
