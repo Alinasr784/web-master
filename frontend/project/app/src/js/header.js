@@ -14,12 +14,17 @@ import {
   faUser,
   faCogs,
   faEllipsisH,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "../css/header.css";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 function Normal() {
   const [logoVisible, setLogoVisible] = useState(true); // للتحكم في عرض الشعار
   const [message, setMessage] = useState(null); // JSX للرسالة
@@ -29,6 +34,8 @@ function Normal() {
   const [isSearchMode, setIsSearchMode] = useState(false); // التحكم في وضع البحث
   const [offcanvas, setOffcanvas] = useState(false);
   const [user, setUser] = useState(null); // لحفظ حالة المستخدم
+  const [login, setLogin] = useState(false);
+  const [isSignUpMode, setIsSignUpMode] = useState(true); // لتبديل الوضع
 
   const handleShowCanvas = () => setOffcanvas(true);
   const handleCloseCanvas = () => setOffcanvas(false);
@@ -73,6 +80,106 @@ function Normal() {
         </Offcanvas>
       </>
     );
+  };
+
+  // Login popup
+  const loginpopup = () => {
+    return (
+      <>
+        <div className="form">
+          {/* زر الإغلاق أعلى يمين الـ popup */}
+          <div className="close-popup" onClick={handleClosePopup}>
+            <FontAwesomeIcon icon={faTimes} />
+          </div>
+
+          {isSignUpMode ? (
+            // نموذج إنشاء حساب
+            <form className="login-form" onSubmit={handleSignUp}>
+              <input type="email" name="email" placeholder="Email" required />
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                required
+              />
+              <button type="submit" className="createAccount">
+                Create Account
+              </button>
+              <p className="message">
+                Already have an account?{" "}
+                <a href="#" onClick={() => setIsSignUpMode(false)}>
+                  Login
+                </a>
+              </p>
+            </form>
+          ) : (
+            // نموذج تسجيل الدخول
+            <form className="login-form" onSubmit={handleLogin}>
+              <h1>True</h1>
+              <input type="email" name="email" placeholder="Email" required />
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                required
+              />
+              <button type="submit" className="sign-in">
+                Sign In
+              </button>
+              <p className="message">
+                Don't have an account?{" "}
+                <a href="#" onClick={() => setIsSignUpMode(true)}>
+                  Sign Up
+                </a>
+              </p>
+            </form>
+          )}
+        </div>
+      </>
+    );
+  };
+  const handleSignUp = (e) => {
+    e.preventDefault(); // منع إعادة تحميل الصفحة
+    const email = e.target.email.value; // الحصول على البريد من الفورم
+    const password = e.target.password.value; // الحصول على كلمة المرور من الفورم
+
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("Account created successfully", user);
+        setUser(user); // حفظ المستخدم في الحالة
+        setLogin(false); // إغلاق نافذة تسجيل الدخول
+        alert("Account created successfully!");
+      })
+      .catch((error) => {
+        console.error("Sign-up failed:", error.message);
+        alert("Sign-up failed: " + error.message);
+      });
+  };
+  const handleLogin = (e) => {
+    e.preventDefault(); // منع التحديث الافتراضي
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        setUser(user); // تحديث حالة المستخدم
+        setLogin(false); // إغلاق نافذة تسجيل الدخول
+        console.log("Logged in successfully:", user);
+      })
+      .catch((error) => {
+        console.error("Login failed:", error.message);
+        alert("Login failed: " + error.message); // عرض رسالة خطأ
+      });
+  };
+
+  // دالة إغلاق الـ popup
+  const handleClosePopup = () => {
+    // قم بتعريف setShowPopup حسب حالتك لإخفاء الـ popup
+    setLogin(false);
   };
 
   //Login check
@@ -318,26 +425,45 @@ function Normal() {
                 <ul className="dropdown-menu">
                   <li>
                     <a className="dropdown-item" href="#">
-                      <FontAwesomeIcon icon={faUser} style={{ marginRight: "10px" }} /> Profile
+                      <FontAwesomeIcon
+                        icon={faUser}
+                        style={{ marginRight: "10px" }}
+                      />{" "}
+                      Profile
                     </a>
                   </li>
                   <li>
                     <a className="dropdown-item" href="#">
-                      <FontAwesomeIcon icon={faCogs} style={{ marginRight: "10px" }} /> Wishlist
+                      <FontAwesomeIcon
+                        icon={faCogs}
+                        style={{ marginRight: "10px" }}
+                      />{" "}
+                      Wishlist
                     </a>
                   </li>
                   <li>
                     <a className="dropdown-item" href="#">
-                      <FontAwesomeIcon icon={faEllipsisH} style={{ marginRight: "10px" }} /> Orders
+                      <FontAwesomeIcon
+                        icon={faEllipsisH}
+                        style={{ marginRight: "10px" }}
+                      />{" "}
+                      Orders
                     </a>
                   </li>
                 </ul>
               </div>
             ) : (
-            <div>Login</div>
+              <div
+                onClick={() => {
+                  setLogin(true);
+                }}
+              >
+                Login
+              </div>
             )}
           </div>
           {offcanvas && canvas()}
+          {login && loginpopup()}
         </>
       )}
     </div>
