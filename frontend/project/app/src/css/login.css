@@ -1,0 +1,81 @@
+*{
+  font-family: "Quicksand", serif;
+  font-optical-sizing: auto;
+}
+
+.formbold-main-wrapper-checkout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #f9f9f9; /* لون الخلفية */
+  min-height: 100vh; /* ملء الشاشة */
+  font-family: "Quicksand", serif;
+  font-optical-sizing: auto;
+}
+
+.formbold-form-wrapper-checkout {
+  background: #ffffff; /* لون الخلفية للنموذج */
+  border-radius: 8px; /* زوايا دائرية */
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* ظل خفيف */
+  width: 100%;
+  max-width: 500px; /* عرض أقصى للنموذج */
+}
+
+.formbold-input-flex-checkout {
+  display: flex;
+  flex-direction: row; /* تغيير الاتجاه ليتناسب مع الموبايل */
+  margin-bottom: 15px; /* مسافة بين الحقول */
+  width: 100%; /* عرض الحقول */
+}
+
+.firstName {
+  margin-right: 10px; /* المسافة بين المدخلين */
+}
+
+.formbold-form-label-checkout {
+  margin-bottom: 5px; /* مسافة بين العلامة والمدخل */
+  font-weight: bold; /* جعل الخط غامق */
+}
+
+.formbold-form-input-checkout {
+  width: 100%; /* عرض المدخل 100% */
+  padding: 10px; /* حشوة داخلية للمدخل */
+  border: 1px solid #ccc; /* حدود خفيفة */
+  border-radius: 4px; /* زوايا دائرية للمدخل */
+  font-size: 14px; /* حجم الخط */
+  box-sizing: border-box; /* لضمان الحشوة لا تؤثر على العرض */
+}
+
+.formbold-mb-3-checkout {
+  margin-bottom: 15px; /* مسافة بين الحقول */
+}
+
+.formbold-btn-checkout {
+  background-color: #007bff; /* لون خلفية الزر */
+  color: white; /* لون النص */
+  padding: 10px; /* حشوة داخلية للزر */
+  border: none; /* إزالة الحدود */
+  border-radius: 4px; /* زوايا دائرية للزر */
+  cursor: pointer; /* تغيير المؤشر عند التمرير فوق الزر */
+  font-size: 16px; /* حجم الخط */
+  transition: background-color 0.3s; /* تأثير الانتقال عند تغيير اللون */
+  width: 100%; /* عرض الزر 100% */
+  margin-bottom: 15px; /* تقليل المسافة بين الزر والنص */
+}
+
+.formbold-btn-checkout:hover {
+  background-color: #0056b3; /* لون خلفية الزر عند التمرير */
+}
+
+.formbold-message-checkout {
+  margin-top: 0; /* تقليل المسافة بين الزر والنص */
+  font-size: 14px;
+  color: #666;
+}
+
+.formbold-message-checkout a {
+  color: #007bff;
+  text-decoration: none;
+}
