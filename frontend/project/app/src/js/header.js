@@ -36,7 +36,31 @@ function Normal() {
   const navigate = useNavigate(); // لاستخدام التنقل
 
 
+  useEffect(() => {
+    const auth = getAuth();
+    const db = getFirestore();
 
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      setUser(currentUser); // حفظ المستخدم الحالي
+      if (currentUser) {
+        try {
+          // جلب بيانات المستخدم من Firestore
+          const userDoc = doc(db, "users", currentUser.uid);
+          const userSnapshot = await getDoc(userDoc);
+          if (userSnapshot.exists()) {
+            const userData = userSnapshot.data();
+            welcomeMessage(userData.firstname); // عرض اسم المستخدم في الرسالة
+          } else {
+            console.error("No user data found!");
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
 
 
@@ -197,17 +221,15 @@ function Normal() {
     );
   };
 
-  const welcomeMessage = () => {
+  const welcomeMessage = (name) => {
     showMessage(
-      <div className="message">Welcome Ali</div>,
-      2000, // وقت عرض الرسالة (5 ثواني)
+      <div className="message welcome">Welcome <span>{name}</span></div>,
+      3500,
       () => {
-        console.log("Welcome message clicked!");
+        console.log("Welcome message clicked!",name);
       },
     );
   };
-
-  useEffect(() => addToCartMessage(), []);
 
   // Handle clicks outside the header to exit search mode
   useEffect(() => {

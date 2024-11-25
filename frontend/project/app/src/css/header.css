@@ -130,6 +130,14 @@ body {
   max-width: 200px;
   overflow: hidden;
 }
+.message.welcome{
+  font-size:21px;
+  span{
+    font-size : 23px;
+    font-weight : 800;
+    padding-left: 6px;
+  }
+}
 
 .messageText.card {
   font: inherit;
