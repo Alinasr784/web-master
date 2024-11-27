@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // ت
 import Header from './js/header';
 import Carousel from './js/carousel';
 import Products from './js/products';
-import Login from "./js/login"; // استيراد صفحة تسجيل الدخول
+import Login from "./js/login"; 
+import Designs from "./js/designs";
 import "./css/home.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -15,6 +16,7 @@ function Home() {
     <div className='home'>
       <Header />
       <Carousel />
+      <Designs />
       <Products />
     </div>
   );
@@ -24,6 +26,13 @@ function LoginPage(){
   <>
     <Login/>
   </>
+  )
+}
+function DesignsPage(){
+  return(
+    <>
+      <Header/>
+    </>
   )
 }
 
