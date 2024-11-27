@@ -21,9 +21,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "../css/header.css";
-import { getAuth, onAuthStateChanged ,   createUserWithEmailAndPassword,   signInWithEmailAndPassword
-} from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
+
 function Normal() {
   const [logoVisible, setLogoVisible] = useState(true); // للتحكم في عرض الشعار
   const [message, setMessage] = useState(null); // JSX للرسالة
@@ -32,9 +39,10 @@ function Normal() {
   const [avatarRotation, setAvatarRotation] = useState(0); // زاوية دوران الصورة
   const [isSearchMode, setIsSearchMode] = useState(false); // التحكم في وضع البحث
   const [offcanvas, setOffcanvas] = useState(false);
+  const [isDragging, setIsDragging] = useState(false); // حالة السحب الجديدة
   const [user, setUser] = useState(null); // لحفظ حالة المستخدم
   const navigate = useNavigate(); // لاستخدام التنقل
-
+  
 
   useEffect(() => {
     const auth = getAuth();
@@ -51,7 +59,6 @@ function Normal() {
             const userData = userSnapshot.data();
             welcomeMessage(userData.firstname); // عرض اسم المستخدم في الرسالة
           } else {
-            console.error("No user data found!");
           }
         } catch (error) {
           console.error("Error fetching user data:", error);
@@ -62,63 +69,38 @@ function Normal() {
     return () => unsubscribe();
   }, []);
 
+  const logout = () => {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        console.log("User signed out successfully");
+        logoutMessage()
+        setUser(null); // تأكد من تحديث حالة المستخدم بعد تسجيل الخروج
+        // تنفيذ أي إجراءات إضافية تحتاجها بعد تسجيل الخروج
+      })
+      .catch((error) => {
+        console.log("Error signing out: ", error);
+      });
+  };
 
-
-
-
-  
   const handleShowCanvas = () => setOffcanvas(true);
   const handleCloseCanvas = () => setOffcanvas(false);
-  const canvas = () => {
-    return (
-      <>
-        <Offcanvas
-          show={offcanvas}
-          onHide={handleCloseCanvas}
-          backdropClassName="Offcanvas"
-        >
-          <Offcanvas.Header>
-            <Offcanvas.Title className="navTitle">Brand AD</Offcanvas.Title>
-          </Offcanvas.Header>
-          <Offcanvas.Body>
-            <div className="menu">
-              <button className="menu-item">
-                <FontAwesomeIcon icon={faHome} className="menu-icon" />
-                <span>Home page</span>
-              </button>
-              <button className="menu-item">
-                <FontAwesomeIcon icon={faPalette} className="menu-icon" />
-                <span>Your designs</span>
-              </button>
-              <button className="menu-item">
-                <FontAwesomeIcon icon={faShapes} className="menu-icon" />
-                <span>Ready made designs</span>
-              </button>
-              <button className="menu-item">
-                <FontAwesomeIcon icon={faEnvelope} className="menu-icon" />
-                <span>Contact us</span>
-              </button>
-              <button className="menu-item login">
-                <FontAwesomeIcon
-                  icon={faSignInAlt}
-                  className="menu-icon login-icon"
-                />
-                <span>{user ? "Logout" : "Login"}</span>
-              </button>
-            </div>
-          </Offcanvas.Body>
-        </Offcanvas>
-      </>
-    );
-  };
+
 
   //Login check
   useEffect(() => {
     const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser); // إذا كان هناك مستخدم مسجل دخول، سيُحدث الحالة
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("User is logged in:", user);
+        setUser(user);
+      } else {
+        console.log("No user is logged in");
+        setUser(null);
+      }
     });
-    return () => unsubscribe(); // التنظيف عند إزالة المكون
+
+    return () => unsubscribe();
   }, []);
 
   // Notification
@@ -147,6 +129,7 @@ function Normal() {
     let currentX = 0;
     const activationThreshold = 100; // المسافة اللازمة لتنفيذ الفتح/الإغلاق
     const maxOffcanvasMovement = window.innerWidth * 0.7; // 70% من العرض
+    let isTouchStarted = false;
 
     const handleTouchStart = (e) => {
       touchStartX = e.touches[0].clientX;
@@ -156,25 +139,34 @@ function Normal() {
       currentX = e.touches[0].clientX;
       const deltaX = currentX - touchStartX;
 
+      if (!isTouchStarted && Math.abs(deltaX) > 60) {
+        setIsDragging(true);
+        isTouchStarted = true;
+      }
+
       const offcanvasElement = document.querySelector(".offcanvas");
-      if (!offcanvas && deltaX > 0) {
-        // السحب يمينًا لفتح
-        const translateValue = Math.min(deltaX, maxOffcanvasMovement);
-        if (offcanvasElement) {
-          offcanvasElement.style.transition = "none";
-          offcanvasElement.style.transform = `translateX(${translateValue}px)`;
-        }
-      } else if (offcanvas && deltaX < 0) {
-        // السحب يسارًا للإغلاق
-        const translateValue = Math.max(deltaX, -maxOffcanvasMovement);
-        if (offcanvasElement) {
-          offcanvasElement.style.transition = "none";
-          offcanvasElement.style.transform = `translateX(${translateValue}px)`;
+      if (isTouchStarted) {
+        if (!offcanvas && deltaX > 0) {
+          // السحب يمينًا لفتح
+          const translateValue = Math.min(deltaX, maxOffcanvasMovement);
+          if (offcanvasElement) {
+            offcanvasElement.style.transition = "none";
+            offcanvasElement.style.transform = `translateX(${translateValue}px)`;
+          }
+        } else if (offcanvas && deltaX < 0) {
+          // السحب يسارًا للإغلاق
+          const translateValue = Math.max(deltaX, -maxOffcanvasMovement);
+          if (offcanvasElement) {
+            offcanvasElement.style.transition = "none";
+            offcanvasElement.style.transform = `translateX(${translateValue}px)`;
+          }
         }
       }
     };
 
     const handleTouchEnd = () => {
+      setIsDragging(false);
+      isTouchStarted = false;
       const deltaX = currentX - touchStartX;
       const offcanvasElement = document.querySelector(".offcanvas");
 
@@ -194,15 +186,18 @@ function Normal() {
       }
     };
 
-    window.addEventListener("touchstart", handleTouchStart);
-    window.addEventListener("touchmove", handleTouchMove);
-    window.addEventListener("touchend", handleTouchEnd);
+    
+    if(isDragging){
+      window.addEventListener("touchstart", handleTouchStart);
+      window.addEventListener("touchmove", handleTouchMove);
+      window.addEventListener("touchend", handleTouchEnd);
+      return()=>{
+        window.removeEventListener("touchstart", handleTouchStart);
+        window.removeEventListener("touchmove", handleTouchMove);
+        window.removeEventListener("touchend", handleTouchEnd);
+      }
+    }
 
-    return () => {
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("touchend", handleTouchEnd);
-    };
   }, [offcanvas]);
   // Notification Examples
   const addToCartMessage = () => {
@@ -223,13 +218,26 @@ function Normal() {
 
   const welcomeMessage = (name) => {
     showMessage(
-      <div className="message welcome">Welcome <span>{name}</span></div>,
+      <div className="message welcome">
+        Welcome <span>{name}</span>
+      </div>,
       3500,
       () => {
-        console.log("Welcome message clicked!",name);
+        console.log("Welcome message clicked!", name);
       },
     );
   };
+  const logoutMessage = ()=>{
+    showMessage(
+      <div className="message">
+        Logout successfully 
+      </div>,
+      3000,
+      () => {
+        /*My logic here*/
+      },
+    );
+  }
 
   // Handle clicks outside the header to exit search mode
   useEffect(() => {
@@ -306,6 +314,10 @@ function Normal() {
     window.addEventListener("scroll", handleScroll); // إضافة استماع للتمرير
     return () => window.removeEventListener("scroll", handleScroll); // تنظيف الاستماع
   }, []);
+  const menuItemClick = ()=>{
+    setIsDragging(false)
+    setOffcanvas(false)
+  }
 
   return (
     <div
@@ -383,14 +395,57 @@ function Normal() {
             ) : (
               <div
                 onClick={() => {
-                  navigate("./login")
+                  navigate("/login");
                 }}
               >
                 Login
               </div>
             )}
           </div>
-          {offcanvas && canvas()}
+          {offcanvas && (
+          <Offcanvas show={offcanvas} onHide={handleCloseCanvas} backdropClassName="Offcanvas">
+            <Offcanvas.Header>
+              <Offcanvas.Title className="navTitle">Brand AD</Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              <div className="menu">
+                <button className="menu-item" onClick={menuItemClick} >
+                <FontAwesomeIcon icon={faHome} className="menu-icon" />
+                  <span>Home page</span>
+                </button>
+                <button className="menu-item" onClick={menuItemClick}>
+                  <FontAwesomeIcon icon={faPalette} className="menu-icon" />
+                  <span>Your designs</span>
+                </button>
+                <button className="menu-item" onClick={menuItemClick}>
+                  <FontAwesomeIcon icon={faShapes} className="menu-icon" />
+                  <span>Ready made designs</span>
+                </button>
+                <button className="menu-item" onClick={menuItemClick}>
+                  <FontAwesomeIcon icon={faEnvelope} className="menu-icon" />
+                  <span>Contact us</span>
+                </button>
+                <button
+                  className="menu-item login"
+                  onClick={()=>{
+                    menuItemClick()
+                    if(user){
+                      logout()
+                    }else{
+                      navigate("/login")
+                    }
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={faSignInAlt}
+                    className="menu-icon login-icon"
+                  />
+                  <span>{user ? "Log-out" : "Log-in"}</span>
+                </button>
+              </div>
+            </Offcanvas.Body>
+          </Offcanvas>
+          )}
         </>
       )}
     </div>
