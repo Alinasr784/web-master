@@ -19,13 +19,20 @@ function Home() {
     </div>
   );
 }
+function LoginPage(){
+  return(
+  <>
+    <Login/>
+  </>
+  )
+}
 
 root.render(
   <React.StrictMode>
     <Router> 
       <Routes> 
         <Route path="/" element={<Home />} /> {/* الصفحة الرئيسية */}
-        <Route path="/login" element={<Login />} /> {/* صفحة تسجيل الدخول */}
+        <Route path="/login" element={<LoginPage />} /> {/* صفحة تسجيل الدخول */}
       </Routes>
     </Router>
   </React.StrictMode>

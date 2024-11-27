@@ -8,6 +8,8 @@ import {
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import Swal from "sweetalert2";
 import "../css/login.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const Toast = Swal.mixin({
   toast: true,
@@ -27,11 +29,11 @@ const Login = () => {
     lastname: "",
     phone: "",
     email: "",
-    address: "",
     password: "",
   });
 
   const [isLogin, setIsLogin] = useState(false);
+  const [step, setStep] = useState(1); // حالة لتتبع الخطوة الحالية
 
   const navigate = useNavigate();
 
@@ -43,17 +45,28 @@ const Login = () => {
     });
   };
 
-  const validateForm = () => {
-    const { firstname, lastname, phone, address, email, password } = formData;
-    if (!email || !password) {
-      Toast.fire("Error", "Please fill in all required fields.", "error");
-      return false;
-    }
-    if (!isLogin && (!firstname || !lastname || !phone || !address)) {
+  const validateStep1 = () => {
+    const { firstname, lastname, phone } = formData;
+    if (!firstname || !lastname || !phone) {
       Toast.fire("Error", "Please fill in all required fields.", "error");
       return false;
     }
     return true;
+  };
+
+  const validateForm = () => {
+    const { email, password } = formData;
+    if (!email || !password) {
+      Toast.fire("Error", "Please fill in all required fields.", "error");
+      return false;
+    }
+    return true;
+  };
+
+  const handleContinue = () => {
+    if (validateStep1()) {
+      setStep(2);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -83,27 +96,34 @@ const Login = () => {
           lastname: formData.lastname,
           phone: formData.phone,
           email: formData.email,
-          address: formData.address,
         });
 
         navigate("/");
       }
     } catch (error) {
-      Toast.fire("Error","Failed to create account. Please try again.","error");
+      Toast.fire("Error", "Failed to create account. Please try again.", "error");
     }
+  };
+
+  const handleCancel = () => {
+    navigate("/");
   };
 
   return (
     <div className="formbold-main-wrapper-checkout">
       <div className="formbold-form-wrapper-checkout">
         <form onSubmit={handleSubmit}>
-          {!isLogin && (
+          {/* شريط التقدم */}
+          <div className="progress-bar-container">
+            <div className="progress-bar" style={{ width: `${(step - 1) * 50}%` }}></div>
+          </div>
+
+          {/* Step 1 */}
+          {!isLogin && step === 1 && (
             <>
               <div className="formbold-input-flex-checkout">
                 <div className="firstName">
-                  <label className="formbold-form-label-checkout">
-                    First Name
-                  </label>
+                  <label className="formbold-form-label-checkout">First Name</label>
                   <input
                     type="text"
                     name="firstname"
@@ -112,12 +132,11 @@ const Login = () => {
                     value={formData.firstname}
                     onChange={handleChange}
                     required
+                    autoFocus // هنا التعديل
                   />
                 </div>
                 <div>
-                  <label className="formbold-form-label-checkout">
-                    Last Name
-                  </label>
+                  <label className="formbold-form-label-checkout">Last Name</label>
                   <input
                     type="text"
                     name="lastname"
@@ -130,9 +149,7 @@ const Login = () => {
                 </div>
               </div>
               <div className="formbold-mb-3-checkout">
-                <label className="formbold-form-label-checkout">
-                  Phone Number
-                </label>
+                <label className="formbold-form-label-checkout">Phone Number</label>
                 <input
                   type="tel"
                   name="phone"
@@ -143,53 +160,71 @@ const Login = () => {
                   required
                 />
               </div>
+              <div className="formbold-btn-group">
+                <button type="button" className="formbold-btn-continue" onClick={handleContinue}>
+                  Continue <FontAwesomeIcon icon={faArrowRight} />
+                </button>
+                <button type="button" className="formbold-btn-cancel" onClick={handleCancel}>
+                  Cancel
+                </button>
+              </div>
+            </>
+          )}
+
+          {/* Step 2 */}
+          {(isLogin || step === 2) && (
+            <>
               <div className="formbold-mb-3-checkout">
-                <label className="formbold-form-label-checkout">Address</label>
+                <label className="formbold-form-label-checkout">Email</label>
                 <input
-                  type="text"
-                  name="address"
-                  placeholder="Street address"
+                  type="email"
+                  name="email"
+                  placeholder="Your Email"
                   className="formbold-form-input-checkout"
-                  value={formData.address}
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  autoFocus // هنا التعديل
+                />
+              </div>
+              <div className="formbold-mb-3-checkout">
+                <label className="formbold-form-label-checkout">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Your Password"
+                  className="formbold-form-input-checkout"
+                  value={formData.password}
                   onChange={handleChange}
                   required
                 />
               </div>
+              <div className="formbold-btn-group-step2">
+                <button type="submit" className="formbold-btn-step2-create">
+                  {isLogin ? "Login" : "Create Account"}
+                </button>
+                <button type="button" className="formbold-btn-step2-cancel" onClick={handleCancel}>
+                  Cancel
+                </button>
+              </div>
             </>
           )}
-          <div className="formbold-mb-3-checkout">
-            <label className="formbold-form-label-checkout">Email</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Your Email"
-              className="formbold-form-input-checkout"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
+
+          {/* Toggle between Login and Create Account */}
+          <div className="formbold-text-center">
+            <p
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                setIsLogin(!isLogin);
+                if (!isLogin) setStep(1);  // عند التبديل إلى "Create Account"، اعادة الخطوة إلى 1
+              }}
+              className="formbold-switch-to-login-signup"
+            >
+              {isLogin
+                ? "Don't have an account? Create Account"
+                : "Already have an account? Login"}
+            </p>
           </div>
-          <div className="formbold-mb-3-checkout">
-            <label className="formbold-form-label-checkout">Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Your password"
-              className="formbold-form-input-checkout"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <button type="submit" className="formbold-btn-checkout">
-            {isLogin ? "Login" : "Create Account"}
-          </button>
-          <p className="formbold-message-checkout">
-            {isLogin ? "Don't have an account? " : "Already have an account? "}
-            <a href="#" onClick={() => setIsLogin(!isLogin)}>
-              {isLogin ? "Sign up here" : "Login here"}
-            </a>
-          </p>
         </form>
       </div>
     </div>
