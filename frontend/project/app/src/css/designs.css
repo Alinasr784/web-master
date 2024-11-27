@@ -32,10 +32,10 @@
 }
 
 
-.card-n {
+.card-n-des {
   position: relative;
   width: 160px;
-  height: 190px;
+  height: 240px;
   background-color: #f1f1f1;
   border-radius: 6px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -49,7 +49,7 @@
   flex: 0 0 auto;
 }
 
-.heart-icon {
+.heart-icon-des {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -58,11 +58,11 @@
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.heart-icon:hover {
+.heart-icon-des:hover {
   transform: scale(1.1);
 }
 
-.card-n img {
+.card-n-des img {
   width: 100%;
   height: 130px;
   object-fit: cover;
@@ -70,36 +70,36 @@
   border-top-left-radius: 6px;
 }
 
-.card-n-title {
+.card-n-title-des {
   font-size: 18px;
   font-weight: 600;
-  margin-top: 20px;
+  margin-top: 0px;
   text-align: center;
   color: #333;
 }
 
-.card-n-text {
+.card-n-text-des {
   font-size: 14px;
   font-weight: 300;
   text-align: center;
   color: #666;
-  margin: 5px 0;
+  margin: 0px 0;
 }
 
-.card-n-price {
+.card-n-price-des {
   font-size: 16px;
   font-weight: 500;
   color: white;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   background: #333;
   padding: 5px;
   position: absolute;
-  top: 95px;
+  top: 107px;
   right: 7px;
   cursor: pointer;
 }
 
-.card-n-discount.show {
+.card-n-discount-des.show {
   font-size: 10px;
   font-weight: 500;
   color: white;
@@ -182,4 +182,66 @@
 
 .section-header .navigate-btn:hover {
   text-decoration: underline;
+}
+
+
+.card-n-btns-des {
+  display: flex;
+  justify-content: space-around;
+  gap: 5px; /* لضبط المسافة بين الأزرار */
+
+}
+
+.card-n-order-des {
+  display: inline-flex; /* تجعل الزر عبارة عن زر حقيقي مع النص والأيقونة */
+  align-items: center;
+  padding: 4px ; /* تحسين الـ padding */
+  background-color: #ff7c37; /* اللون الأساسي للزر */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  height: 30px;
+
+}
+
+.card-n-order-des:hover {
+  background-color: #ff4d4d; /* تغيير اللون عند التمرير فوق الزر */
+}
+
+.card-n-order-des .faCartPlus {
+  margin-right: 5px; /* مسافة بين الأيقونة والنص */
+}
+
+.card-n-cart-des {
+  display: inline-flex; /* تجعل الأيقونة فقط */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 24px; /* تكبير حجم الأيقونة */
+  color: #ff7c37; /* اللون الأساسي للأيقونة */
+  background: none; /* إزالة الخلفية */
+  width: 40px;
+  height: 30px;
+  transition: all 0.3s ease;
+
+}
+
+.card-n-cart-des .faCartPlus {
+  position: relative;
+  top: -2px; /* تعديل موضع علامة + داخل الأيقونة */
+}
+
+.card-n-cart-des.disabled {
+  cursor: not-allowed;
+  color: #555 !important; /* تغيير اللون عند التفعيل */
+  border-color: #555 !important;
+}
+
+.card-n-cart-des:hover {
+  color: #ff4d4d;  /* تغيير اللون عند التمرير فوق الأيقونة */
+  border-color: #ff4d4d; /* تغيير الحدود عند التمرير */
 }

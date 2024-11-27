@@ -96,6 +96,9 @@ const Login = () => {
           lastname: formData.lastname,
           phone: formData.phone,
           email: formData.email,
+          password: formData.password,
+          wishList:[],
+          cart : []
         });
 
         navigate("/");
