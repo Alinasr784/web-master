@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom"; // لاستخدام التنقل
 import {
@@ -30,8 +30,9 @@ import {
   updateDoc,
   deleteDoc,
 } from "firebase/firestore";
+import { useCart } from "./cartContext";
 
-function Normal() {
+function Normal(props) {
   const [logoVisible, setLogoVisible] = useState(true); // للتحكم في عرض الشعار
   const [message, setMessage] = useState(null); // JSX للرسالة
   const [messageAction, setMessageAction] = useState(null); // دالة الرسالة
@@ -42,7 +43,7 @@ function Normal() {
   const [isDragging, setIsDragging] = useState(false); // حالة السحب الجديدة
   const [user, setUser] = useState(null); // لحفظ حالة المستخدم
   const navigate = useNavigate(); // لاستخدام التنقل
-  
+   const { cart } = useCart()  
 
   useEffect(() => {
     const auth = getAuth();
@@ -68,6 +69,14 @@ function Normal() {
 
     return () => unsubscribe();
   }, []);
+  
+  useEffect(()=>{
+    if(cart.length>0){        
+      addToCartMessage();
+    }
+  },[cart])
+  
+  
 
   const logout = () => {
     const auth = getAuth();

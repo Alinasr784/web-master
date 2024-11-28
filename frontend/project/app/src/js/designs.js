@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { collection, getDocs, getDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "./firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,14 +7,16 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/designs.css";
 import { useNavigate } from "react-router-dom"; // إضافة استيراد useNavigate
+import { useCart } from './cartContext'; // استيراد useCart
 
-// Boot ==> bootstrap
 function BootCard(props) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isOrdered, setIsOrdered] = useState(false); // لحفظ حالة زر "Order Now"
   const [isInCart, setIsInCart] = useState(false); // لحفظ حالة زر "Cart"
   const [user, setUser] = useState({});
   const [wishList, setWishList] = useState([]); // إضافة الحالة لقائمة المفضلة
+
+  const { addToCart } = useCart(); // استهلاك دالة addToCart من الـ Context
 
   const toggleFavorite = () => {
     setIsFavorite((prevIsFavorite) => {
@@ -46,17 +48,20 @@ function BootCard(props) {
   };
 
   const handleAddToCart = async () => {
+    setIsInCart(true); // تغيير الحالة عند الضغط
     if (!user || !user.uid) {
       alert("Please log in to add items to the cart.");
       return;
     }
 
-    setIsInCart(true); // تغيير الحالة عند الضغط
     try {
       const userDoc = doc(db, "users", user.uid);
       await updateDoc(userDoc, {
         cart: [...(user.cart || []), props.id], // إضافة الـ id للـ cart
       });
+
+      // إضافة المنتج إلى السلة في الـ Context
+      addToCart(props.id);
       console.log("Item added to cart");
     } catch (error) {
       console.error("Error adding to cart: ", error);
@@ -73,19 +78,27 @@ function BootCard(props) {
           const userDoc = doc(db, "users", currentUser.uid);
           const userSnapshot = await getDoc(userDoc);
           if (userSnapshot.exists()) {
-            setUser({ ...currentUser, ...userSnapshot.data() });
+            const userData = userSnapshot.data();
+            setUser({ ...currentUser, ...userData });
+
+            // تحقق من العناصر الموجودة في cart
+            if (userData.cart && Array.isArray(userData.cart)) {
+              if (userData.cart.includes(props.id)) {
+                setIsInCart(true); // إذا كان العنصر موجودًا في السلة
+              }
+            }
           }
         } catch (error) {
           console.error("Error fetching user data:", error);
         }
       } else {
         console.log("No user is logged in");
-        setUser(null); // تأكد من تعيين user إلى null إذا لم يكن المستخدم مسجلاً
+        setUser(null); // تعيين user إلى null إذا لم يكن المستخدم مسجلاً
       }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [props.id]);
 
   return (
     <div className="card-n-des">
@@ -109,21 +122,18 @@ function BootCard(props) {
       <div className="card-n-price-des">{props.price} EGP</div>
       <div className="card-n-btns-des">
         <div
-          className={`card-n-order-des ${isOrdered ? "disabled" : ""}`}
+          className={`card-n-order-des ${isOrdered ? "disabled" : "active"}`}
           onClick={handleOrder}
         >
           Order Now
         </div>
         <div
-          className={`card-n-cart-des ${isInCart ? "disabled" : ""}`}
-          onClick={()=>{
-            handleAddToCart();
-            console.log("done")
-          }}
+          className={`card-n-cart-des ${isInCart ? "disabled" : "active"}`}
+          onClick={handleAddToCart}
         >
           <FontAwesomeIcon
             icon={faCartPlus}
-            style={{ color: isOrdered ? "#555" : "#ff7c37" }}
+            style={{ color: isInCart ? "#555" : "#ff7c37" }}
           />
         </div>
       </div>

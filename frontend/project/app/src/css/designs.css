@@ -237,8 +237,7 @@
 
 .card-n-cart-des.disabled {
   cursor: not-allowed;
-  color: #555 !important; /* تغيير اللون عند التفعيل */
-  border-color: #555 !important;
+  color: red !important; /* تغيير اللون عند التفعيل */
 }
 
 .card-n-cart-des:hover {
