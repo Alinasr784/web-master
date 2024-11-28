@@ -158,10 +158,11 @@
   padding: 12px;
   border: none;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 12px;
   background-color: #4CAF50;
   color: #fff;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .formbold-btn-step2-create:hover {
@@ -173,7 +174,7 @@
   padding: 12px;
   border: none;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 12px;
   background-color: #f44336;
   color: #fff;
   cursor: pointer;
