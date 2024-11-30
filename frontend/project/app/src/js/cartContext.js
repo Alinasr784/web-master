@@ -1,4 +1,4 @@
-// CartContext.js
+// cartContext.js
 import React, { createContext, useState, useContext } from 'react';
 
 // إنشاء Context للسلة
@@ -10,7 +10,13 @@ export const CartProvider = ({ children }) => {
 
   // دالة لإضافة منتج إلى السلة
   const addToCart = (productId) => {
-    setCart((prevCart) => [...prevCart, productId]);
+    // تحقق من إذا كان المنتج موجودًا بالفعل في السلة
+    setCart((prevCart) => {
+      if (prevCart.includes(productId)) {
+        return prevCart; // إذا كان موجودًا، لا تضيفه مرة أخرى
+      }
+      return [...prevCart, productId];
+    });
   };
 
   return (

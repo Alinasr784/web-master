@@ -1,6 +1,7 @@
 body {
   font-family: "Nunito", sans-serif;
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -32,9 +33,11 @@ body {
   padding-left: 18px;
   transition: all 0.3s ease-in-out;
 }
-.contain.search-active{
-  border : 1px solid #ff7c32;
+
+.contain.search-active {
+  border: 1px solid #ff7c32;
 }
+
 .searchBar {
   width: 100%;
   height: 100%;
@@ -53,7 +56,8 @@ body {
   border: none;
   outline: none;
   font-size: 16px;
-  padding: 0 50px 0 10px; /* مساحة لأيقونة البحث */
+  padding: 0 50px 0 10px;
+  /* مساحة لأيقونة البحث */
   border-radius: 50px;
   background-color: transparent;
   color: #333;
@@ -130,115 +134,147 @@ body {
   max-width: 200px;
   overflow: hidden;
 }
-.message.welcome{
-  font-size:21px;
-  span{
-    font-size : 23px;
-    font-weight : 800;
+
+.message.welcome {
+  font-size: 21px;
+
+  span {
+    font-size: 23px;
+    font-weight: 800;
     padding-left: 6px;
   }
 }
 
 .messageText.card {
   font: inherit;
-  color:inherit ;
-  background : none;
-  border:none;
-  white-space : nowrap;
-  margin-right: 8px; /* مسافة بين النص والأيقونات */
+  color: inherit;
+  background: none;
+  border: none;
+  white-space: nowrap;
+  margin-right: 8px;
+  /* مسافة بين النص والأيقونات */
   text-align: left;
-  animation: TextMoveLeft 2s ease-in-out 1.5s forwards; /* تأخير الحركة لتزامنها مع المنتج */
+  animation: TextMoveLeft 2s ease-in-out 1.5s forwards;
+  /* تأخير الحركة لتزامنها مع المنتج */
 }
+
 .messageIcon.card {
   position: relative;
   width: 100px;
   height: 50px;
   display: flex;
   justify-content: center;
-  background : none;
-  border:none;
+  background: none;
+  border: none;
   align-items: center;
 }
+
 /* أيقونة المنتج */
 .productIcon {
   position: absolute;
-  top: -30px; /* ارتفاع السقوط */
-  left: 60px; /* بداية المنتج */
-  font-size: 15px; /* حجم صغير للمنتج */
+  top: -30px;
+  /* ارتفاع السقوط */
+  left: 60px;
+  /* بداية المنتج */
+  font-size: 15px;
+  /* حجم صغير للمنتج */
   color: #ff7c37;
   animation: dropIntoCart 2s ease-in-out forwards;
 }
+
 /* أيقونة عربة التسوق */
 .cartIcon {
   position: absolute;
   bottom: 10;
   left: 29px;
-  font-size: 22px; /* حجم مناسب للعربة */
+  font-size: 22px;
+  /* حجم مناسب للعربة */
   color: #333;
-  animation: cartMoveLeft 2s ease-in-out 1.5s forwards; /* تأخير الحركة لتزامنها مع المنتج */
+  animation: cartMoveLeft 2s ease-in-out 1.5s forwards;
+  /* تأخير الحركة لتزامنها مع المنتج */
 }
+
 /* حركة سقوط المنتج */
 @keyframes dropIntoCart {
   0% {
-    top: -80px; /* بدء أعلى بقليل */
+    top: -80px;
+    /* بدء أعلى بقليل */
     opacity: 0;
     transform: rotate(0deg);
   }
+
   30% {
     top: 0;
     opacity: 1;
-    transform: rotate(30deg); /* تكبير قليل أثناء الدخول */
+    transform: rotate(30deg);
+    /* تكبير قليل أثناء الدخول */
   }
+
   50% {
     top: 10px;
     opacity: 1;
     transform: scale(0.9) rotate(45deg);
   }
+
   60% {
-    top: 5px; /* تأثير الارتداد */
+    top: 5px;
+    /* تأثير الارتداد */
     left: 35px;
     transform: scale(1) rotate(70deg);
   }
+
   80% {
-    top: 10px; 
-    left: 40px; 
+    top: 10px;
+    left: 40px;
     opacity: 1;
     transform: scale(1) rotate(90deg);
   }
+
   90% {
     top: 11px;
     left: 43px;
-    transform : rotate(110deg)
+    transform: rotate(110deg)
   }
-  100%{
+
+  100% {
     top: 13px;
     left: 49px;
-    opacity:0;
+    opacity: 0;
     transform: rotate(70deg)
   }
 }
+
 /* حركة عربة التسوق */
 @keyframes cartMoveLeft {
   0% {
     transform: translateX(0) scale(1);
   }
+
   50% {
-    transform: translateX(25px); /* تكبير قليل عند التحرك */
+    transform: translateX(25px);
+    /* تكبير قليل عند التحرك */
   }
-  70%{
-    transform: translateX(18px); /* تكبير قليل عند التحرك */
+
+  70% {
+    transform: translateX(18px);
+    /* تكبير قليل عند التحرك */
   }
+
   100% {
     transform: translateX(100px) scale(1);
   }
 }
+
 @keyframes TextMoveLeft {
   0% {
     transform: translateX(0) scale(1);
   }
+
   50% {
-    transform: translateX(25px); /* تكبير قليل عند التحرك */
+    transform: translateX(25px);
+    /* تكبير قليل عند التحرك */
   }
+
   100% {
     transform: translateX(30px) scale(1);
   }
@@ -267,6 +303,7 @@ body {
     opacity: 0;
     transform: scale(0.9);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -278,6 +315,7 @@ body {
     opacity: 1;
     transform: scale(1);
   }
+
   100% {
     opacity: 0;
     transform: scale(0.9);
@@ -316,9 +354,11 @@ body {
 .meAvatar.rotate {
   transform: rotate(360deg);
 }
-.offcanvas{
-  width : 70vw !important;
+
+.offcanvas {
+  width: 70vw !important;
 }
+
 .offcanvas {
   transform: translateX(-100%);
   transition: transform 0.3s ease;
@@ -327,7 +367,8 @@ body {
 .offcanvas.open {
   transform: translateX(0);
 }
-.navTitle{
+
+.navTitle {
   font-family: "Bebas Neue", sans-serif;
   font-size: 30px !important;
   font-weight: 800 !important;
@@ -343,14 +384,17 @@ body {
   width: 100%;
   font-family: "Nunito", sans-serif !important;
 }
+
 .menu-item {
   white-space: nowrap;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: start;
-  background-color: #FFF6F0; /* خلفية فاتحة متناسقة مع البرتقالي */
-  color: #333333; /* نص داكن */
+  background-color: #FFF6F0;
+  /* خلفية فاتحة متناسقة مع البرتقالي */
+  color: #333333;
+  /* نص داكن */
   padding: 12px 16px;
   border-radius: 8px;
   border: none;
@@ -363,7 +407,7 @@ body {
 
 .menu-item:hover {
   transform: scale(1.05);
-  background-color: #FF5737; 
+  background-color: #FF5737;
   color: #FFFFFF;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
@@ -371,23 +415,29 @@ body {
 .menu-icon {
   margin-right: 12px;
   font-size: 20px;
-  color: #FF7C37; /* نفس اللون الأساسي للأيقونة */
+  color: #FF7C37;
+  /* نفس اللون الأساسي للأيقونة */
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .menu-item:hover .menu-icon {
   transform: rotate(360deg);
-  color: #FFFFFF; 
+  color: #FFFFFF;
 }
-span , a{
+
+span,
+a {
   font-family: "Nunito", sans-serif !important;
 }
+
 .login {
   width: 100%;
   padding: 12px 16px;
   text-align: center;
-  background-color: #FF7C37; /* اللون الأساسي */
-  color: #FFFFFF; /* لون النص أبيض */
+  background-color: #FF7C37;
+  /* اللون الأساسي */
+  color: #FFFFFF;
+  /* لون النص أبيض */
   border-radius: 8px;
   font-size: 16px;
   font-weight: bold;
@@ -396,15 +446,19 @@ span , a{
 }
 
 .login:hover {
-  background-color: #FF5737; 
+  background-color: #FF5737;
   transform: scale(1.05);
 }
 
 .login .login-icon {
-  color: #2c3e50; /* لون غامق يتناسق مع اللون الأساسي */
-  font-size: 18px; /* حجم مناسب */
-  margin-right: 8px; /* مسافة بين الأيقونة والنص */
+  color: #2c3e50;
+  /* لون غامق يتناسق مع اللون الأساسي */
+  font-size: 18px;
+  /* حجم مناسب */
+  margin-right: 8px;
+  /* مسافة بين الأيقونة والنص */
 }
+
 /* تنسيق قائمة الدروب داون */
 .dropdown-menu {
   list-style-type: none;
@@ -414,9 +468,12 @@ span , a{
   top: 100%;
   left: 0;
   min-width: 190px;
-  background-color: #f8f9fa; /* لون خلفية محايد */
-  border: 1px solid #ddd;   /* حافة خفيفة */
-  border-radius: 5px;       /* حواف دائرية */
+  background-color: #f8f9fa;
+  /* لون خلفية محايد */
+  border: 1px solid #ddd;
+  /* حافة خفيفة */
+  border-radius: 5px;
+  /* حواف دائرية */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: none;
   z-index: 1000;
@@ -425,30 +482,31 @@ span , a{
 /* عند التمرير على الدروب داون */
 .dropdown-menu.show {
   display: flex;
-  justify-content:center;
-  align-items:space-around;
-  flex-direction:column;
+  justify-content: center;
+  align-items: space-around;
+  flex-direction: column;
 }
 
 /* تنسيق العناصر داخل القائمة */
 .dropdown-item {
-  width : 96%;
+  width: 96%;
   padding: 10px 10px;
-  margin:auto;
-  margin-top:2px;
-  margin-bottom:2px;
-  color: #495057; /* لون نص رمادي دافئ */
+  margin: auto;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  color: #495057;
+  /* لون نص رمادي دافئ */
   font-size: 14px;
   display: flex;
   align-items: center;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
-  border-radius:6px;
+  border-radius: 6px;
 }
 
 /* عند التمرير فوق العنصر */
 .dropdown-item:hover {
-  background-color: #007bff; 
+  background-color: #007bff;
   color: #fff;
 }
 
@@ -459,76 +517,20 @@ span , a{
 
 /* إضافة أيقونة بجانب النص */
 .dropdown-item i {
-  margin-right: 10px; /* المسافة بين الأيقونة والنص */
-  font-size: 16px; /* حجم الأيقونة */
+  margin-right: 10px;
+  /* المسافة بين الأيقونة والنص */
+  font-size: 16px;
+  /* حجم الأيقونة */
 }
 
-.form {
-  position: absolute;
-  top: 50vh;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #FFFFFF;
-  width: 90%;
-  max-width: 360px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  box-sizing: border-box;
+.offBody {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  height : 100%;
+  width : 100%; 
 }
-
-.form input {
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 100%;
-  border: 0;
-  margin: 0 0 15px;
-  padding: 15px;
-  box-sizing: border-box;
-  font-size: 14px;
-}
-
-.form .sign-in, .form .createAccount {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #4CAF50;
-  width: 100%;
-  border: 0;
-  padding: 15px;
-  color: #FFFFFF;
-  font-size: 14px;
-  transition: background 0.3s ease;
-  cursor: pointer;
-}
-
-.form button:hover, .form button:active, .form button:focus {
-  background: #43A047;
-}
-
-.form .message {
-  margin: 15px 0 0;
-  color: #b3b3b3;
-  font-size: 12px;
-}
-
-.form .message a {
-  color: #4CAF50;
-  text-decoration: none;
-}
-
-.close-popup {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background: none;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  color: #333;
-}
-
-.close-popup:hover {
-  color: red;
+.bottom{
+  width : 100%;
 }

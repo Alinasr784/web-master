@@ -32,7 +32,7 @@ import {
 } from "firebase/firestore";
 import { useCart } from "./cartContext";
 
-function Normal(props) {
+function Normal() {
   const [logoVisible, setLogoVisible] = useState(true); // للتحكم في عرض الشعار
   const [message, setMessage] = useState(null); // JSX للرسالة
   const [messageAction, setMessageAction] = useState(null); // دالة الرسالة
@@ -417,23 +417,38 @@ function Normal(props) {
               <Offcanvas.Title className="navTitle">Brand AD</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
+              <div className="offBody">
               <div className="menu">
-                <button className="menu-item" onClick={menuItemClick} >
+                <button className="menu-item" onClick={()=>{
+            menuItemClick();
+            navigate("/");
+          }} >
                 <FontAwesomeIcon icon={faHome} className="menu-icon" />
                   <span>Home page</span>
                 </button>
-                <button className="menu-item" onClick={menuItemClick}>
+                <button className="menu-item" onClick={()=>{
+            menuItemClick();
+            navigate("/your-designs");
+          }}>
                   <FontAwesomeIcon icon={faPalette} className="menu-icon" />
                   <span>Your designs</span>
                 </button>
-                <button className="menu-item" onClick={menuItemClick}>
+                <button className="menu-item" onClick={()=>{
+            menuItemClick();
+            navigate("/designs");
+          }}>
                   <FontAwesomeIcon icon={faShapes} className="menu-icon" />
                   <span>Ready made designs</span>
                 </button>
-                <button className="menu-item" onClick={menuItemClick}>
+                <button className="menu-item" onClick={()=>{
+            menuItemClick();
+            navigate("/contact");
+          }}>
                   <FontAwesomeIcon icon={faEnvelope} className="menu-icon" />
                   <span>Contact us</span>
                 </button>
+              </div>
+              <div className="bottom">
                 <button
                   className="menu-item login"
                   onClick={()=>{
@@ -451,6 +466,7 @@ function Normal(props) {
                   />
                   <span>{user ? "Log-out" : "Log-in"}</span>
                 </button>
+              </div>
               </div>
             </Offcanvas.Body>
           </Offcanvas>

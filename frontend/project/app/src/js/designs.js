@@ -14,37 +14,18 @@ function BootCard(props) {
   const [isOrdered, setIsOrdered] = useState(false); // لحفظ حالة زر "Order Now"
   const [isInCart, setIsInCart] = useState(false); // لحفظ حالة زر "Cart"
   const [user, setUser] = useState({});
-  const [wishList, setWishList] = useState([]); // إضافة الحالة لقائمة المفضلة
-
   const { addToCart } = useCart(); // استهلاك دالة addToCart من الـ Context
 
   const toggleFavorite = () => {
     setIsFavorite((prevIsFavorite) => {
-      if (prevIsFavorite) {
-        // إزالة من قائمة المفضلة إذا كان قد تم إضافته بالفعل
-        setWishList((prevWishList) =>
-          prevWishList.filter((itemId) => itemId !== props.id)
-        );
-      } else {
-        // إضافة إلى قائمة المفضلة
-        setWishList((prevWishList) => [...prevWishList, props.id]);
-      }
+      // تحديث حالة المفضلة
       return !prevIsFavorite;
     });
   };
 
   const handleOrder = async () => {
     setIsOrdered(true); // تغيير الحالة عند الضغط
-    /*try {
-      if (user && user.uid) {
-        const userDoc = doc(db, "users", user.uid);
-        await updateDoc(userDoc, {
-          orders: [...(user.orders || []), props.id], // إضافة الـ id للـ orders
-        });
-      }
-    } catch (error) {
-      console.error("Error adding order: ", error);
-    }*/
+    // يمكنك إضافة منطق إضافي هنا، مثل إرسال الطلب إلى قاعدة البيانات
   };
 
   const handleAddToCart = async () => {
@@ -104,9 +85,7 @@ function BootCard(props) {
     <div className="card-n-des">
       <div
         className="heart-icon-des"
-        onClick={() => {
-          toggleFavorite(props.id);
-        }}
+        onClick={toggleFavorite}
       >
         <FontAwesomeIcon
           icon={faHeart}
@@ -185,12 +164,10 @@ function Designs() {
           id: doc.id, // استخدام ID المستند
           img: doc.data().image || "", // جلب صورة المنتج
           name: doc.data().title || "", // جلب اسم المنتج
-          des: doc.data().description || "", // وصف المنتج
           smallDes: doc.data().smallDes || "",
           price: doc.data().price || 0, // السعر
           discount: doc.data().discount || false, // الخصم
           stock: doc.data().stock || 0, // الكمية المتوفرة
-          design: doc.data().design || false, // إضافة الخاصية "design"
         }));
         setProducts(designsList); // تحديث الحالة بالبيانات
       } catch (error) {
