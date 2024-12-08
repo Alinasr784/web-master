@@ -1,21 +1,22 @@
-import React, { useState, useEffect , useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useNavigate } from "react-router-dom"; // لاستخدام التنقل
+import { useNavigate , useLocation} from "react-router-dom"; // لاستخدام التنقل
 import {
   faBars,
   faSearch,
   faBox,
   faShoppingCart,
-  faSmile,
   faHome,
   faPalette,
   faShapes,
   faEnvelope,
   faSignInAlt,
   faUser,
-  faCogs,
+  faCartPlus,
   faEllipsisH,
   faTimes,
+  faClipboardList,
+  faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Offcanvas from "react-bootstrap/Offcanvas";
@@ -31,8 +32,10 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { useCart } from "./cartContext";
+import { useWish } from "./wishListContext";
 
 function Normal() {
+  const location = useLocation();
   const [logoVisible, setLogoVisible] = useState(true); // للتحكم في عرض الشعار
   const [message, setMessage] = useState(null); // JSX للرسالة
   const [messageAction, setMessageAction] = useState(null); // دالة الرسالة
@@ -43,12 +46,13 @@ function Normal() {
   const [isDragging, setIsDragging] = useState(false); // حالة السحب الجديدة
   const [user, setUser] = useState(null); // لحفظ حالة المستخدم
   const navigate = useNavigate(); // لاستخدام التنقل
-   const { cart } = useCart()  
-
+  const { cart } = useCart();
+  const { wish } = useWish();
+  const [lastCart, setLastCart] = useState(cart.length);
+  const [lastWish, setLastWish] = useState(wish.length);
   useEffect(() => {
     const auth = getAuth();
     const db = getFirestore();
-
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser); // حفظ المستخدم الحالي
       if (currentUser) {
@@ -58,7 +62,13 @@ function Normal() {
           const userSnapshot = await getDoc(userDoc);
           if (userSnapshot.exists()) {
             const userData = userSnapshot.data();
-            welcomeMessage(userData.firstname); // عرض اسم المستخدم في الرسالة
+            if(location.pathname=="/"){
+              welcomeMessage(userData.firstname); // عرض اسم المستخدم في الرسالة
+            }else if(location.pathname =="/cart"){
+              cartPageMessage();
+            }else if(location.pathname =="/designs"){
+              designsPageMessage();
+            }
           } else {
           }
         } catch (error) {
@@ -69,21 +79,29 @@ function Normal() {
 
     return () => unsubscribe();
   }, []);
-  
-  useEffect(()=>{
-    if(cart.length>0){        
+
+  useEffect(() => {
+    if (cart.length > lastCart) {
       addToCartMessage();
+      setLastCart(cart.length);
+    } else {
+      setLastCart(cart.length);
     }
-  },[cart])
-  
-  
+  }, [cart]);
+  useEffect(() => {
+    if (wish.length > lastWish) {
+      setLastWish(wish.length);
+    } else {
+      setLastWish(wish.length);
+    }
+  }, [wish]);
 
   const logout = () => {
     const auth = getAuth();
     signOut(auth)
       .then(() => {
         console.log("User signed out successfully");
-        logoutMessage()
+        logoutMessage();
         setUser(null); // تأكد من تحديث حالة المستخدم بعد تسجيل الخروج
         // تنفيذ أي إجراءات إضافية تحتاجها بعد تسجيل الخروج
       })
@@ -94,7 +112,6 @@ function Normal() {
 
   const handleShowCanvas = () => setOffcanvas(true);
   const handleCloseCanvas = () => setOffcanvas(false);
-
 
   //Login check
   useEffect(() => {
@@ -195,18 +212,16 @@ function Normal() {
       }
     };
 
-    
-    if(isDragging){
+    if (isDragging) {
       window.addEventListener("touchstart", handleTouchStart);
       window.addEventListener("touchmove", handleTouchMove);
       window.addEventListener("touchend", handleTouchEnd);
-      return()=>{
+      return () => {
         window.removeEventListener("touchstart", handleTouchStart);
         window.removeEventListener("touchmove", handleTouchMove);
         window.removeEventListener("touchend", handleTouchEnd);
-      }
+      };
     }
-
   }, [offcanvas]);
   // Notification Examples
   const addToCartMessage = () => {
@@ -236,17 +251,35 @@ function Normal() {
       },
     );
   };
-  const logoutMessage = ()=>{
+  const logoutMessage = () => {
     showMessage(
-      <div className="message">
-        Logout successfully 
-      </div>,
+      <div className="message">Logout successfully</div>,
       3000,
       () => {
         /*My logic here*/
       },
     );
-  }
+  };
+
+  const cartPageMessage = () => {
+    showMessage(
+      <div className="message">Your Cart Here</div>,
+      2500,
+      () => {
+        /*My logic here*/
+      },
+    );
+  };
+
+  const designsPageMessage = () => {
+    showMessage(
+      <div className="message">Designs For You</div>,
+      2500,
+      () => {
+        /*My logic here*/
+      },
+    );
+  };
 
   // Handle clicks outside the header to exit search mode
   useEffect(() => {
@@ -323,10 +356,10 @@ function Normal() {
     window.addEventListener("scroll", handleScroll); // إضافة استماع للتمرير
     return () => window.removeEventListener("scroll", handleScroll); // تنظيف الاستماع
   }, []);
-  const menuItemClick = ()=>{
-    setIsDragging(false)
-    setOffcanvas(false)
-  }
+  const menuItemClick = () => {
+    setIsDragging(false);
+    setOffcanvas(false);
+  };
 
   return (
     <div
@@ -384,7 +417,7 @@ function Normal() {
                   <li>
                     <a className="dropdown-item" href="#">
                       <FontAwesomeIcon
-                        icon={faCogs}
+                        icon={faHeart}
                         style={{ marginRight: "10px" }}
                       />{" "}
                       Wishlist
@@ -393,7 +426,7 @@ function Normal() {
                   <li>
                     <a className="dropdown-item" href="#">
                       <FontAwesomeIcon
-                        icon={faEllipsisH}
+                        icon={faClipboardList}
                         style={{ marginRight: "10px" }}
                       />{" "}
                       Orders
@@ -412,64 +445,104 @@ function Normal() {
             )}
           </div>
           {offcanvas && (
-          <Offcanvas show={offcanvas} onHide={handleCloseCanvas} backdropClassName="Offcanvas">
-            <Offcanvas.Header>
-              <Offcanvas.Title className="navTitle">Brand AD</Offcanvas.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-              <div className="offBody">
-              <div className="menu">
-                <button className="menu-item" onClick={()=>{
-            menuItemClick();
-            navigate("/");
-          }} >
-                <FontAwesomeIcon icon={faHome} className="menu-icon" />
-                  <span>Home page</span>
-                </button>
-                <button className="menu-item" onClick={()=>{
-            menuItemClick();
-            navigate("/your-designs");
-          }}>
-                  <FontAwesomeIcon icon={faPalette} className="menu-icon" />
-                  <span>Your designs</span>
-                </button>
-                <button className="menu-item" onClick={()=>{
-            menuItemClick();
-            navigate("/designs");
-          }}>
-                  <FontAwesomeIcon icon={faShapes} className="menu-icon" />
-                  <span>Ready made designs</span>
-                </button>
-                <button className="menu-item" onClick={()=>{
-            menuItemClick();
-            navigate("/contact");
-          }}>
-                  <FontAwesomeIcon icon={faEnvelope} className="menu-icon" />
-                  <span>Contact us</span>
-                </button>
-              </div>
-              <div className="bottom">
-                <button
-                  className="menu-item login"
-                  onClick={()=>{
-                    menuItemClick()
-                    if(user){
-                      logout()
-                    }else{
-                      navigate("/login")
-                    }
-                  }}
-                >
-                  <FontAwesomeIcon
-                    icon={faSignInAlt}
-                    className="menu-icon login-icon"
-                  />
-                  <span>{user ? "Log-out" : "Log-in"}</span>
-                </button>
-              </div>
-              </div>
-            </Offcanvas.Body>
-          </Offcanvas>
+            <Offcanvas
+              show={offcanvas}
+              onHide={handleCloseCanvas}
+              backdropClassName="Offcanvas"
+            >
+              <Offcanvas.Header>
+                <Offcanvas.Title className="navTitle">Brand AD</Offcanvas.Title>
+              </Offcanvas.Header>
+              <Offcanvas.Body>
+                <div className="offBody">
+                  <div className="menu">
+                    <button
+                      className="menu-item"
+                      onClick={() => {
+                        menuItemClick();
+                        navigate("/");
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faHome} className="menu-icon" />
+                      <span>Home page</span>
+                    </button>
+                    <button
+                      className="menu-item"
+                      onClick={() => {
+                        menuItemClick();
+                        navigate("/your-designs");
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faPalette} className="menu-icon" />
+                      <span>My designs</span>
+                    </button>
+                    <button
+                      className="menu-item"
+                      onClick={() => {
+                        menuItemClick();
+                        navigate("/designs");
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faShapes} className="menu-icon" />
+                      <span>Ready made designs</span>
+                    </button>
+                    <button
+                      className="menu-item"
+                      onClick={() => {
+                        menuItemClick();
+                        navigate("/cart");
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faCartPlus} className="menu-icon" />
+                      <span>My Cart</span>
+                    </button>
+                    <button
+                      className="menu-item"
+                      onClick={() => {
+                        menuItemClick();
+                        navigate("/wish-list");
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faHeart} className="menu-icon" />
+                      <span>My Wish List</span>
+                    </button>
+
+                    <button
+                      className="menu-item"
+                      onClick={() => {
+                        menuItemClick();
+                        navigate("/contact");
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        icon={faEnvelope}
+                        className="menu-icon"
+                      />
+                      <span>Contact us</span>
+                    </button>
+                  </div>
+                  <div className="bottom">
+                    <button
+                      className="menu-item login"
+                      onClick={() => {
+                        menuItemClick();
+                        if (user) {
+                          logout();
+                        } else {
+                          navigate("/login");
+                        }
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        icon={faSignInAlt}
+                        className="menu-icon login-icon"
+                      />
+                      <span>{user ? "Log-out" : "Log-in"}</span>
+                    </button>
+                  </div>
+                </div>
+              </Offcanvas.Body>
+            </Offcanvas>
           )}
         </>
       )}

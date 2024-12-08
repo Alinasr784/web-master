@@ -1,19 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
-import { CartProvider } from './js/cartContext';
-import Header from './js/header';
-import Carousel from './js/carousel';
-import Products from './js/products';
-import Login from "./js/login"; 
-import Designs from "./js/designs"; 
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { CartProvider } from "./js/cartContext";
+import { WishProvider } from "./js/wishListContext";
+import Header from "./js/header";
+import Carousel from "./js/carousel";
+import Products from "./js/products";
+import Login from "./js/login";
+import Designs from "./js/designs";
 import "./css/home.css";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 function Home() {
   return (
-    <div className='home'>
+    <div className="home">
       <Header />
       <Carousel />
       <Designs />
@@ -22,32 +23,49 @@ function Home() {
   );
 }
 
-function LoginPage(){
-  return(
+function LoginPage() {
+  return (
     <>
-      <Login/>
+      <Login />
     </>
   );
 }
 
-function DesignsPage(){
-  return(
+function DesignsPage() {
+  return (
     <div>
       <Header />
     </div>
   );
 }
 
+function CartPage(){
+  return(
+    <>
+     <Header/>
+    </>
+  )
+}
+
+function WishPage (){
+  <>
+
+  </>
+}
 root.render(
   <React.StrictMode>
-    <CartProvider>
-      <Router> 
-        <Routes> 
-          <Route path="/" element={<Home />} /> 
-          <Route path="/login" element={<LoginPage />} /> 
-          <Route path="/designs" element={<DesignsPage />} /> 
-        </Routes>
-      </Router>
-    </CartProvider>
-  </React.StrictMode>
+    <WishProvider>
+      <CartProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/designs" element={<DesignsPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/wish-list" element={<WishPage />} />
+          </Routes>
+        </Router>
+      </CartProvider>
+    </WishProvider>
+  </React.StrictMode>,
 );

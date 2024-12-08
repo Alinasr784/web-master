@@ -1,5 +1,5 @@
 // cartContext.js
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext } from "react";
 
 // إنشاء Context للسلة
 const CartContext = createContext();
@@ -18,9 +18,14 @@ export const CartProvider = ({ children }) => {
       return [...prevCart, productId];
     });
   };
+  const removeFromCart = (productId)=>{
+    setCart((prevCart) => {
+      return prevCart.filter((item) => item !== productId);
+    });
+  }
 
   return (
-    <CartContext.Provider value={{ cart, addToCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
       {children}
     </CartContext.Provider>
   );
