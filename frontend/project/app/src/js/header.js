@@ -511,6 +511,19 @@ function Normal() {
                       className="menu-item"
                       onClick={() => {
                         menuItemClick();
+                        navigate("/orders");
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        icon={faClipboardList}
+                        className="menu-icon"
+                      />
+                      <span>My Orders</span>
+                    </button>
+                    <button
+                      className="menu-item"
+                      onClick={() => {
+                        menuItemClick();
                         navigate("/contact");
                       }}
                     >
