@@ -8,7 +8,20 @@
   justify-content: space-around;
   gap: 10px;
 }
+.content {
+  animation: fadeInRows 0.8s ease-in-out;
+}
 
+@keyframes fadeInRows {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .single-row-container {
   display: flex;
   overflow-x: auto;
@@ -27,15 +40,11 @@
   border-radius: 10px; 
 }
 
-.single-row-container::-webkit-scrollbar-track {
-  background: #f1f1f1; 
-}
-
 
 .card-n-des {
   position: relative;
   width: 160px;
-  height: 200px;
+  height: 235px;
   background-color: #f1f1f1;
   border-radius: 6px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -47,6 +56,8 @@
   transition: transform 0.2s ease;
   scroll-snap-align: start;  
   flex: 0 0 auto;
+  animation: fadeIn 1s ease-in-out;
+
 }
 
 .heart-icon-des {
@@ -65,14 +76,20 @@
 
 .card-n-des img {
   width: 100%;
-  height: 130px;
+  height: 160px;
   object-fit: cover;
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
   position: absolute;
   top:0;
 }
+.card-n-des img {
+  transition: transform 0.3s ease-in-out;
+}
 
+.card-n-des:hover img {
+  transform: scale(1.1) translateY(-5px);
+}
 .card-n-title-des {
   font-size: 18px;
   font-weight: 600;
@@ -99,10 +116,11 @@
   background: #333;
   padding: 5px;
   position: absolute;
-  top: 107px;
+  top: 137px;
   right: 7px;
   cursor: pointer;
 }
+
 
 .card-n-discount-des.show {
   font-size: 10px;
@@ -113,11 +131,22 @@
   background: #ff4d4d;
   padding: 5px;
   position: absolute;
-  top: 85px;
+  top: 115px;
   right: 7px;
   cursor: pointer;
 }
+.card-n-discount-des.show:hover {
+  animation: bounce 0.5s;
+}
 
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
 .hide {
   display: none;
 }
@@ -153,28 +182,31 @@
   color: #333;
 }
 
-.section-header .navigate-btn {
-  display: flex;
-  align-items: center;
-  font-size: 16px;
-  color: #007bff;
-  cursor: pointer;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.section-header .navigate-btn:hover {
-  text-decoration: underline;
+@keyframes textShine {
+  from {
+    background-position: -200%;
+  }
+  to {
+    background-position: 200%;
+  }
 }
 
-
-/* CSS لعناوين الأقسام */
 .section-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 10px 15px;
-  font-size: 20px;
-  font-weight: bold;
-  color: #333;
+  background: linear-gradient(to right, #ff4d4d, #7A1CAC, #AD49E1);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: textShine 3s linear infinite;
+  background-size: 200%;
 }
 
 .section-header .navigate-btn {
@@ -188,6 +220,8 @@
 .section-header .navigate-btn:hover {
   text-decoration: underline;
 }
+
+
 
 
 .card-n-btns-des {
@@ -213,7 +247,9 @@
   text-align: center;
 
 }
-
+.card-n-des:focus-within {
+  box-shadow: 0 0 10px #ff7c37;
+}
 
 
 .card-n-cart-des.disabled{
@@ -247,3 +283,47 @@
     font-size: 18px;
   }
 }
+.arrow-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.arrow {
+  position: absolute;
+  z-index: 15;
+  border: none;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  color: #ff7c37;
+  font-size :12px;
+}
+
+.arrow:hover {
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+}
+
+.left-arrow {
+  left: 15px;
+}
+
+.right-arrow {
+  right: 15px;
+}
+
+.single-row-container {
+  scroll-behavior: smooth;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+}
+

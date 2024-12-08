@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
+import { useNavigate } from "react-router-dom"; // إضافة استيراد useNavigate
+
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 import "../css/products.css";
@@ -47,13 +49,12 @@ function BootCard(props) {
       <img src={props.img} alt={props.name} />
       <div className="card-n-title">{props.name}</div>
       <div className="card-n-text">{props.smallDes}</div>
-      <div className={`card-n-discount ${props.discount? "show" : "hide"}`}>{props.discount} EGP</div>
-      <div className="card-n-price">{props.price} EGP</div>
     </div>
   );
 }
 
 function Products() {
+  const navigate = useNavigate(); // تعريف navigate
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -82,7 +83,17 @@ function Products() {
   }, []);
 
   return (
-    <div>
+    <div className="products-section">
+      <div className="products-header">
+        <span>Make It <span>Yours</span></span>
+        <div
+          className="products-btn"
+          onClick={() => navigate("/products")} // استخدام navigate
+        >
+          View All →
+        </div>
+        
+      </div>
       <div className="content">
         {products.map((item) => (
           <BootCard key={item.id} {...item} />

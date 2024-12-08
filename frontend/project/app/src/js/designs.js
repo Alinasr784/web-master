@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext , useRef} from "react";
 import {
   collection,
   getDocs,
@@ -12,7 +12,7 @@ import {
   faHeart,
   faCartPlus,
   faShoppingCart,
-  faBox
+  faBox,faChevronLeft, faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -193,7 +193,7 @@ function BootCard(props) {
           className={`card-n-cart-des ${isInCart ? "disabled" : "active"}`}
           onClick={handleAddToCart}
         >
-          {isInCart?"Added":"Add To Cart"}
+          {isInCart ? "Added" : "Add To Cart"}
         </div>
       </div>
     </div>
@@ -202,6 +202,19 @@ function BootCard(props) {
 
 function SingleRowProductDisplay({ products }) {
   const navigate = useNavigate(); // تعريف navigate
+  const scrollLeft = () => {
+    if (rowRef.current) {
+      rowRef.current.scrollBy({ left: -200, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (rowRef.current) {
+      rowRef.current.scrollBy({ left: 200, behavior: "smooth" });
+    }
+  };
+
+  const rowRef = useRef(null);
 
   return (
     <>
@@ -214,18 +227,26 @@ function SingleRowProductDisplay({ products }) {
           View All →
         </div>
       </div>
-      <div className="single-row-container">
-        {products.map((product) => (
-          <BootCard
-            key={product.id}
-            id={product.id}
-            img={product.img}
-            name={product.name}
-            smallDes={product.smallDes}
-            price={product.price}
-            discount={product.discount}
-          />
-        ))}
+      <div className="arrow-container">
+        <button className="arrow left-arrow" onClick={() => scrollLeft()}>
+          <FontAwesomeIcon icon={faChevronLeft}/>
+        </button>
+        <div className="single-row-container" ref={rowRef}>
+          {products.map((product) => (
+            <BootCard
+              key={product.id}
+              id={product.id}
+              img={product.img}
+              name={product.name}
+              smallDes={product.smallDes}
+              price={product.price}
+              discount={product.discount}
+            />
+          ))}
+        </div>
+        <button className="arrow right-arrow" onClick={() => scrollRight()}>
+          <FontAwesomeIcon icon={faChevronRight}/>
+        </button>
       </div>
     </>
   );
