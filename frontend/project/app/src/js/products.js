@@ -35,7 +35,7 @@ function BootCard(props) {
   
   return (
     <div className="card-n">
-      <div
+      {/*<div
         className="heart-icon"
         onClick={() => {
           toggleFavorite(props.id);
@@ -45,7 +45,7 @@ function BootCard(props) {
           icon={faHeart}
           style={{ color: isFavorite ? "#ff4d4d" : "#fff" }}
         />
-      </div>
+      </div>*/}
       <img src={props.img} alt={props.name} />
       <div className="card-n-title">{props.name}</div>
       <div className="card-n-text">{props.smallDes}</div>

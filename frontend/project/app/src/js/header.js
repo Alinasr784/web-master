@@ -405,8 +405,8 @@ function Normal() {
                   aria-expanded="false"
                 />
                 <ul className="dropdown-menu">
-                  <li>
-                    <a className="dropdown-item" href="#">
+                  <li onClick={()=>navigate("/profile")}>
+                    <a className="dropdown-item">
                       <FontAwesomeIcon
                         icon={faUser}
                         style={{ marginRight: "10px" }}
@@ -415,7 +415,7 @@ function Normal() {
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item">
                       <FontAwesomeIcon
                         icon={faHeart}
                         style={{ marginRight: "10px" }}
@@ -424,7 +424,7 @@ function Normal() {
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item">
                       <FontAwesomeIcon
                         icon={faClipboardList}
                         style={{ marginRight: "10px" }}
