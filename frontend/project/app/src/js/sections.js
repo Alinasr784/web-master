@@ -16,7 +16,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../css/designs.css";
+import "../css/sections.css";
 import { useNavigate } from "react-router-dom"; // إضافة استيراد useNavigate
 import { useCart } from "./cartContext"; // استيراد useCart
 import { useWish } from "./wishListContext"; // استيراد useCart
@@ -196,7 +196,7 @@ function BootCard(props) {
 }
 
 
-function SingleRowProductDisplay({ products }) {
+function SingleRowProductDisplay(props) {
   const navigate = useNavigate(); // تعريف navigate
   const rowRef = useRef(null); // تعريف rowRef
 
@@ -213,13 +213,13 @@ function SingleRowProductDisplay({ products }) {
   };
 
   // تقسيم المنتجات إلى صفين
-  const rowOne = products.filter((_, index) => index % 2 === 0); // المنتجات للصف الأول
-  const rowTwo = products.filter((_, index) => index % 2 !== 0); // المنتجات للصف الثاني
+  const rowOne = props.products.filter((_, index) => index % 2 === 0); // المنتجات للصف الأول
+  const rowTwo = props.products.filter((_, index) => index % 2 !== 0); // المنتجات للصف الثاني
 
   return (
     <>
       <div className="section-header">
-        <span>Designs for you</span>
+        <span>{props.title}</span>
         <div
           className="navigate-btn"
           onClick={() => navigate("/designs")} // التنقل إلى صفحة التصميمات
@@ -234,7 +234,7 @@ function SingleRowProductDisplay({ products }) {
         </button>
 
         {/* حاوية المنتجات */}
-        <div className="single-row-container" ref={rowRef}>
+        <div className="single-row-container-sec" ref={rowRef}>
           {/* الصف الأول */}
           {rowOne.map((product) => (
             <BootCard
@@ -266,31 +266,39 @@ function SingleRowProductDisplay({ products }) {
         <button className="arrow right-arrow" onClick={scrollRight}>
           <FontAwesomeIcon icon={faChevronRight} />
         </button>
+        <hr/>
+        <br/>
       </div>
     </>
   );
 }
 
 function Sections() {
-  const [products, setProducts] = useState([]);
+  const [topSells, setTopSells] = useState([]);
+  const [newArrivals, setNewArrivals] = useState([]);
+  const [bestPrice, setBestPrice] = useState([]);
+  const [bestRating, setBestRating] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const designsCollection = collection(db, "designs");
         const designsSnapshot = await getDocs(designsCollection);
-        const designsList = designsSnapshot.docs
-          .map((doc) => ({
-            id: doc.id,
-            img: doc.data().image || "",
-            name: doc.data().title || "",
-            smallDes: doc.data().smallDes || "",
-            price: doc.data().price || 0,
-            discount: doc.data().discount || false,
-            collection: doc.data().collection || "", // قراءة الـ collection
-          }))
-          .filter((product) => product.collection === "top-sells"); // تصفية المنتجات
-        setProducts(designsList);
+        const designsList = designsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          img: doc.data().image || "",
+          name: doc.data().title || "",
+          smallDes: doc.data().smallDes || "",
+          price: doc.data().price || 0,
+          discount: doc.data().discount || false,
+          collection: doc.data().collection || [], // تعديل لجعل collection مصفوفة
+        }));
+
+        // تصفية المنتجات بناءً على وجودها في المجموعات المختلفة
+        setTopSells(designsList.filter((product) => product.collection.includes("top-sells")));
+        setNewArrivals(designsList.filter((product) => product.collection.includes("new-arrivals")));
+        setBestPrice(designsList.filter((product) => product.collection.includes("best-price")));
+        setBestRating(designsList.filter((product) => product.collection.includes("best-rating")));
       } catch (error) {
         console.error("Error fetching designs:", error);
       }
@@ -300,11 +308,18 @@ function Sections() {
   }, []);
 
   return (
-    <div className="designs-page">
-      {products.length > 0 ? (
-        <SingleRowProductDisplay products={products} />
-      ) : (
-        <div className="no-products-message"></div>
+    <div className="sectionsRows">
+      {topSells.length > 0 && (
+        <SingleRowProductDisplay products={topSells} title={"Top Sells"} />
+      )}
+      {newArrivals.length > 0 && (
+        <SingleRowProductDisplay products={newArrivals} title={"New Arrivals"} />
+      )}
+      {bestPrice.length > 0 && (
+        <SingleRowProductDisplay products={bestPrice} title={"Best Price"} />
+      )}
+      {bestRating.length > 0 && (
+        <SingleRowProductDisplay products={bestRating} title={"Best Rating"} />
       )}
     </div>
   );

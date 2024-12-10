@@ -1,8 +1,11 @@
 /* CSS الأساسي لبطاقات المنتجات */
+.sectionsRows{
+  margin-top:10px ;
+}
 .content {
   width: 96vw;
   margin: auto;
-  margin-top: 15px;
+  margin-top: 30px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -22,7 +25,7 @@
     transform: translateY(0);
   }
 }
-.single-row-container {
+.single-row-container-sec {
   display: grid; /* استخدام الشبكة */
   grid-template-rows: repeat(2, auto); /* صفان للمنتجات */
   grid-auto-flow: column; /* تدفق أفقي */
@@ -34,11 +37,11 @@
   margin: auto;
 }
 
-.single-row-container::-webkit-scrollbar {
-  height: 8px;
+.single-row-container-sec::-webkit-scrollbar {
+  width: 8px;
 }
 
-.single-row-container::-webkit-scrollbar-thumb {
+.single-row-container-sec::-webkit-scrollbar-thumb {
   background: #ff7c37;
   border-radius: 10px;
 }
@@ -184,7 +187,8 @@
   align-items: center;
   justify-content: space-between;
   margin: 10px 15px;
-  font-size: 20px;
+  margin-top: 20px;
+  font-size: 21px;
   font-weight: bold;
   color: #333;
 }
@@ -214,6 +218,7 @@
   color: transparent;
   animation: textShine 3s linear infinite;
   background-size: 200%;
+  margin-top:15px;
 }
 
 .section-header .navigate-btn {
@@ -327,7 +332,7 @@
   right: 15px;
 }
 
-.single-row-container {
+.single-row-container-sec {
   scroll-behavior: smooth;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
