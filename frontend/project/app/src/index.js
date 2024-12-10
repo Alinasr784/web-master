@@ -8,6 +8,7 @@ import Carousel from "./js/carousel";
 import Products from "./js/products";
 import Login from "./js/login";
 import Designs from "./js/designs";
+import Sections from "./js/sections";
 import "./css/home.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -19,6 +20,7 @@ function Home() {
       <Carousel />
       <Designs />
       <Products />
+      <Sections />
     </div>
   );
 }
