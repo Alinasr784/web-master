@@ -1,0 +1,350 @@
+.products-page-Cart {
+  width: 94vw;
+  margin: auto;
+  margin-top: 70px;
+  padding-bottom: 80px;
+}
+
+.content-proPage-Cart {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-n-des-Cart {
+  position: relative;
+  width: 0;
+  height: 120px;
+  background-color: #f1f1f1;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  transition: transform 0.2s ease;
+  scroll-snap-align: start;  
+  flex: 0 0 auto;
+  animation: slideIn 0.5s ease-in-out, stretchIn 0.5s ease-out forwards;
+  gap: 10px;
+}
+
+
+.heart-icon-des-Cart {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+  z-index: 5;
+}
+
+.heart-icon-des-Cart:hover {
+  transform: scale(1.1);
+}
+
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes stretchIn {
+  0% {
+    opacity: 0;
+    width: 0;
+  }
+  100% {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
+.card-n-des-Cart img {
+  width: 120px;
+  height: 100%;
+  object-fit: cover;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.card-n-des-Cart img {
+  transition: transform 0.3s ease-in-out;
+}
+
+.card-n-des-Cart:hover img {
+  transform: scale(1.1) translateY(-5px);
+}
+
+.card-n-title-Cart {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  position: absolute;
+  top: 10px;
+  color: #333;
+  left: 135px;
+}
+
+.card-n-text-Cart {
+  font-size: 14px;
+  font-weight: 300;
+  text-align: center;
+  color: #666;
+  margin: 0px 0;
+  position: absolute;
+  top: 35px;
+  left: 135px;
+}
+
+.card-n-price-Cart {
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  margin-bottom: 0px;
+  background: #333;
+  padding: 5px;
+  position: absolute;
+  bottom: 10px;
+  right: 7px;
+  cursor: pointer;
+}
+
+.card-n-discount-Cart.show {
+  font-size: 10px;
+  font-weight: 500;
+  color: white;
+  text-decoration: line-through;
+  margin-bottom: 0px;
+  background: #ff4d4d;
+  padding: 5px;
+  position: absolute;
+  bottom: 40px;
+  right: 7px;
+  cursor: pointer;
+}
+
+.card-n-discount-Cart.show:hover {
+  animation: bounce 0.5s;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.card-n-btns-Cart {
+  position: absolute;
+  bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  left: 130px;
+}
+
+.card-n-remove-Cart {
+  display: block; 
+  cursor: pointer;
+  font-size: 18px;
+  color: white;
+  height: 33px;
+  transition: all 0.3s ease;
+  width: 100%;
+  font-weight: 800;
+  background-color: #ff7c37;
+  text-align: center;
+  border-radius: 3px;
+}
+
+.card-n-des:focus-within-Cart {
+  box-shadow: 0 0 10px #ff7c37;
+}
+
+.card-n-cart-des-Cart.disabled {
+  animation-name: cartAct;
+  animation-duration: 0.8s;
+  animation-fill-mode: forwards;
+}
+
+.card-n-cart-des-Cart.active {
+  animation-name: cartReAct;
+  animation-duration: 0.8s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes cartAct {
+  0% {}
+  100% {
+    background: none;
+    color: #ff7c37;
+    font-size: 15px;
+  }
+}
+
+@keyframes cartReAct {
+  0% {
+    background: none;
+    color: #ff7c37;
+    font-size: 15px;
+  }
+  100% {
+    background-color: #ff7c37;
+    color: white;
+    font-size: 18px;
+  }
+}
+
+
+/* حاوية التحميل */
+.load-container-Cart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.loading-text-Cart {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 20px;
+  text-transform: uppercase;
+  color: #333;
+  letter-spacing: 2px;
+  animation: textFade 1.5s infinite;
+}
+
+.dots-Cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.dots-Cart span {
+  width: 12px;
+  height: 12px;
+  background-color: #ff7c37;
+  border-radius: 50%;
+  animation: bounce 1.5s infinite ease-in-out;
+}
+
+.dots-Cart span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.dots-Cart span:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.dots-Cart span:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+.no-products-Cart {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #555;
+  margin-top: 50px;
+}
+
+
+.checkout-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.checkout-btn {
+  background: linear-gradient(90deg, #ff7c37, #fc466b, #3f5efb); /* ألوان مميزة مع تدرج ديناميكي */
+  background-size: 200% 200%; /* لتحريك التدرج */
+  color: white;
+  font-size: 20px;
+  padding: 15px;
+  border: none;
+  border-radius: 12px; /* زوايا ناعمة */
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.6s ease;
+  animation: gradient-shift 3s infinite; /* تحريك التدرج */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* ظلال خفيفة */
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* تحريك التدرج */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.checkout-btn:hover {
+  transform: translateY(-3px) scale(1.03); /* حركة للأعلى وتكبير طفيف */
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3); /* ظلال أقوى */
+  background: linear-gradient(90deg, #fc466b, #3f5efb, #ff7c37); /* عكس التدرج عند التحويم */
+}
+
+.checkout-btn:active {
+  transform: scale(0.97); /* تصغير طفيف عند الضغط */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* ظلال أقل */
+}
+
+/* تأثير الضوء العابر */
+.checkout-btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -150%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.15);
+  opacity: 0.8;
+  transform: rotate(45deg);
+  transition: all 0.5s ease;
+}
+
+.checkout-btn:hover::after {
+  left: 150%; /* حركة الضوء */
+  transition: all 0.8s ease; /* إبطاء الحركة */
+}
+
+/* تحسينات لزر غير قابل للنقر */
+.checkout-btn:disabled {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}

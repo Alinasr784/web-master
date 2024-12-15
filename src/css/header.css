@@ -1,0 +1,536 @@
+body {
+  font-family: "Nunito", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Nunito", serif;
+  font-optical-sizing: auto;
+}
+
+.header {
+  width: 100vw;
+  height: 50px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top : 10px;
+  z-index: 1000;
+}
+
+.contain-h {
+  width: 94%;
+  height: 100%;
+  border-radius: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #e4e0e1;
+  padding: 10px;
+  padding-left: 18px;
+  transition: all 0.3s ease-in-out;
+}
+
+.contain.search-active {
+  border: 1px solid #ff7c32;
+}
+
+.searchBar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  animation: show 0.5s forwards;
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+}
+
+.searchBar input {
+  width: 90%;
+  height: 80%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 0 50px 0 10px;
+  /* مساحة لأيقونة البحث */
+  border-radius: 50px;
+  background-color: transparent;
+  color: #333;
+}
+
+.searchBar .searchIcon {
+  font-size: 18px;
+  color: #ab886d;
+  position: absolute;
+  left: 0px;
+}
+
+
+
+.contain-left {
+  flex-grow: 1;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.menunav {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  color: #ab886d;
+}
+
+.contain-center {
+  flex-grow: 1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.logo {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  color: #ff7c37;
+  letter-spacing: 2px;
+  font-kerning: auto;
+}
+
+.logo.show {
+  animation-name: show;
+  animation-duration: 0.8s;
+  animation-fill-mode: forwards;
+}
+
+.logo.hide {
+  animation-name: hideMode;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+.message {
+  font-family: "Nunito", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ff7c37;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 2;
+  position: relative;
+  height: 100px;
+  max-width: 200px;
+  overflow: hidden;
+}
+
+.message.welcome {
+  font-size: 21px;
+
+  span {
+    font-size: 23px;
+    font-weight: 800;
+    padding-left: 6px;
+  }
+}
+
+.messageText.card {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  white-space: nowrap;
+  margin-right: 8px;
+  /* مسافة بين النص والأيقونات */
+  text-align: left;
+  animation: TextMoveLeft 2s ease-in-out 1.5s forwards;
+  /* تأخير الحركة لتزامنها مع المنتج */
+}
+
+.messageIcon.card {
+  position: relative;
+  width: 100px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  background: none;
+  border: none;
+  align-items: center;
+}
+
+/* أيقونة المنتج */
+.productIcon {
+  position: absolute;
+  top: -30px;
+  /* ارتفاع السقوط */
+  left: 60px;
+  /* بداية المنتج */
+  font-size: 15px;
+  /* حجم صغير للمنتج */
+  color: #ff7c37;
+  animation: dropIntoCart 2s ease-in-out forwards;
+}
+
+/* أيقونة عربة التسوق */
+.cartIcon {
+  position: absolute;
+  bottom: 10;
+  left: 29px;
+  font-size: 22px;
+  /* حجم مناسب للعربة */
+  color: #333;
+  animation: cartMoveLeft 2s ease-in-out 1.5s forwards;
+  /* تأخير الحركة لتزامنها مع المنتج */
+}
+
+/* حركة سقوط المنتج */
+@keyframes dropIntoCart {
+  0% {
+    top: -80px;
+    /* بدء أعلى بقليل */
+    opacity: 0;
+    transform: rotate(0deg);
+  }
+
+  30% {
+    top: 0;
+    opacity: 1;
+    transform: rotate(30deg);
+    /* تكبير قليل أثناء الدخول */
+  }
+
+  50% {
+    top: 10px;
+    opacity: 1;
+    transform: scale(0.9) rotate(45deg);
+  }
+
+  60% {
+    top: 5px;
+    /* تأثير الارتداد */
+    left: 35px;
+    transform: scale(1) rotate(70deg);
+  }
+
+  80% {
+    top: 10px;
+    left: 40px;
+    opacity: 1;
+    transform: scale(1) rotate(90deg);
+  }
+
+  90% {
+    top: 11px;
+    left: 43px;
+    transform: rotate(110deg)
+  }
+
+  100% {
+    top: 13px;
+    left: 49px;
+    opacity: 0;
+    transform: rotate(70deg)
+  }
+}
+
+/* حركة عربة التسوق */
+@keyframes cartMoveLeft {
+  0% {
+    transform: translateX(0) scale(1);
+  }
+
+  50% {
+    transform: translateX(25px);
+    /* تكبير قليل عند التحرك */
+  }
+
+  70% {
+    transform: translateX(18px);
+    /* تكبير قليل عند التحرك */
+  }
+
+  100% {
+    transform: translateX(100px) scale(1);
+  }
+}
+
+@keyframes TextMoveLeft {
+  0% {
+    transform: translateX(0) scale(1);
+  }
+
+  50% {
+    transform: translateX(25px);
+    /* تكبير قليل عند التحرك */
+  }
+
+  100% {
+    transform: translateX(30px) scale(1);
+  }
+}
+
+
+
+
+
+
+
+.message.show {
+  animation-name: show;
+  animation-duration: 1.8s;
+  animation-fill-mode: forwards;
+}
+
+.message.hide {
+  animation-name: hideMode;
+  animation-duration: 1.8s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes hideMode {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+.contain-right {
+  flex-grow: 1;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.meAvatar {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  color: #ab886d;
+  border-radius: 100px;
+}
+
+.meAvatar img {
+  height: inherit;
+  width: inherit;
+  border-radius: 100px;
+}
+
+.meAvatar {
+  transition: transform 0.5s ease-in-out;
+}
+
+.meAvatar.rotate {
+  transform: rotate(360deg);
+}
+
+.offcanvas {
+  width: 75vw !important;
+}
+
+.offcanvas {
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.offcanvas.open {
+  transform: translateX(0);
+}
+
+.navTitle {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 30px !important;
+  font-weight: 800 !important;
+  color: #ff7c37 !important;
+  letter-spacing: 2px !important;
+  font-kerning: auto !important;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  font-family: "Nunito", sans-serif !important;
+}
+
+.menu-item {
+  white-space: nowrap;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  background-color: #FFF6F0;
+  /* خلفية فاتحة متناسقة مع البرتقالي */
+  color: #333333;
+  /* نص داكن */
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: none;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu-item:hover {
+  transform: scale(1.05);
+  background-color: #FF5737;
+  color: #FFFFFF;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.menu-icon {
+  margin-right: 12px;
+  font-size: 20px;
+  color: #FF7C37;
+  /* نفس اللون الأساسي للأيقونة */
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.menu-item:hover .menu-icon {
+  transform: rotate(360deg);
+  color: #FFFFFF;
+}
+
+span,
+a {
+  font-family: "Nunito", sans-serif !important;
+}
+
+.login {
+  width: 100%;
+  padding: 12px 16px;
+  text-align: center;
+  background-color: #FF7C37;
+  /* اللون الأساسي */
+  color: #FFFFFF;
+  /* لون النص أبيض */
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.login:hover {
+  background-color: #FF5737;
+  transform: scale(1.05);
+}
+
+.login .login-icon {
+  color: #2c3e50;
+  /* لون غامق يتناسق مع اللون الأساسي */
+  font-size: 18px;
+  /* حجم مناسب */
+  margin-right: 8px;
+  /* مسافة بين الأيقونة والنص */
+}
+
+/* تنسيق قائمة الدروب داون */
+.dropdown-menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 190px;
+  background-color: #f8f9fa;
+  /* لون خلفية محايد */
+  border: 1px solid #ddd;
+  /* حافة خفيفة */
+  border-radius: 5px;
+  /* حواف دائرية */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: none;
+  z-index: 1000;
+}
+
+/* عند التمرير على الدروب داون */
+.dropdown-menu.show {
+  display: flex;
+  justify-content: center;
+  align-items: space-around;
+  flex-direction: column;
+}
+
+/* تنسيق العناصر داخل القائمة */
+.dropdown-item {
+  width: 96%;
+  padding: 10px 10px;
+  margin: auto;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  color: #495057;
+  /* لون نص رمادي دافئ */
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 6px;
+}
+
+/* عند التمرير فوق العنصر */
+.dropdown-item:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* عند الضغط على العنصر */
+.dropdown-item:active {
+  background-color: #0056b3;
+}
+
+/* إضافة أيقونة بجانب النص */
+.dropdown-item i {
+  margin-right: 10px;
+  /* المسافة بين الأيقونة والنص */
+  font-size: 16px;
+  /* حجم الأيقونة */
+}
+
+.offBody {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  height : 100%;
+  width : 100%; 
+}
+.bottom{
+  width : 100%;
+}

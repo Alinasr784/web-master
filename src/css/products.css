@@ -1,0 +1,131 @@
+.products-section{
+  margin-top: 20px;
+}
+.content {
+  width: 96vw;
+  margin: auto;
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+.card-n {
+  position: relative;
+  width: 160px;
+  height: 190px;
+  background-color: #f1f1f1;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  transition: transform 0.2s ease;
+  animation: slideIn 0.5s ease-out;
+
+}
+
+.heart-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.heart-icon:hover {
+  transform: scale(1.1);
+}
+
+.card-n img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+}
+
+.card-n-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 5px;
+  text-align: center;
+  color: #333;
+}
+
+.card-n-text {
+  font-size: 14px;
+  font-weight: 300;
+  text-align: center;
+  color: #666;
+  margin: 5px 0;
+}
+
+.card-n-price {
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  margin-bottom: 10px;
+  background: #333;
+  padding: 5px;
+  position: absolute;
+  top: 95px;
+  right: 7px;
+  cursor: pointer;
+}
+
+.card-n-discount.show {
+  font-size: 10px;
+  font-weight: 500;
+  color: white;
+  text-decoration: line-through;
+  margin-bottom: 10px;
+  background: #ff4d4d;
+  padding: 5px;
+  position: absolute;
+  top: 70px;
+  right: 7px;
+  cursor: pointer;
+}
+
+.hide{
+  display: none;
+}
+
+.products-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 15px;
+  font-size: 20px;
+  font-weight: bold;
+  color: transparent;
+  background : linear-gradient(to right,#2E073F,#7A1CAC,#AD49E1);
+  background-clip: text;
+  span{
+    span{
+    }
+  }
+}
+.products-btn{
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #007bff;
+  cursor: pointer;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,126 @@
+/* الصفحة العامة */
+.orders-page {
+  padding: 20px;
+  font-family: "Poppins", sans-serif;
+  background-color: #f4f4f4;
+  padding-bottom: 100px;
+}
+
+.orders-title {
+  text-align: center;
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* الحاوية العامة */
+.orders-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* البطاقات */
+.order-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* عنوان الطلب والحالة */
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.order-header h2 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.order-status {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ff7c37;
+  background-color: #fff5eb;
+  padding: 5px 15px;
+  border-radius: 30px;
+}
+
+/* قائمة المنتجات */
+.order-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.product-item {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product-info h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin: 0;
+}
+
+.product-info p {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 5px 0 0;
+}
+
+/* ملخص الطلب */
+.order-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.order-total {
+  font-size: 1.4rem;
+  color: #27ae60;
+}
+
+/* تحميل */
+.loading {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #666;
+  margin-top: 100px;
+}
+
+/* لا توجد طلبات */
+.no-orders {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #999;
+  margin-top: 100px;
+}

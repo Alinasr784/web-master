@@ -1,0 +1,77 @@
+/* Styling for Bottom Header */
+.bottom-header {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  width: calc(100% - 20px); /* Ensures space on both sides */
+  background-color: #ffffff; /* Clean and modern background */
+  border-radius: 12px; /* Rounded corners for a soft look */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Modern shadow effect */
+  z-index: 1000;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 8px 0; /* Slight padding for better aesthetics */
+  border: 1px solid #e0e0e0; /* Subtle border for refinement */
+}
+
+/* Container for Items */
+.containB {
+  display: flex;
+  justify-content: space-between; /* Adjust items spacing */
+  width: 100%;
+  padding: 0 10px; /* Slight padding inside the container */
+}
+
+/* Individual Item Styling */
+.item {
+  text-align: center;
+  flex: 1;
+  transition: all 0.3s ease-in-out; /* Smooth transitions for hover */
+}
+
+.item-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #6c757d; /* Neutral text color */
+  font-size: 12px;
+}
+
+.item-content .icon {
+  font-size: 22px; /* Balanced size for icons */
+  margin-bottom: 4px;
+  color: #333; /* Fresh blue tone for icons */
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.item-content .text {
+  font-size: 11px; /* Compact size for text */
+  color: #495057; /* Slightly darker tone for contrast */
+  transition: color 0.3s ease-in-out;
+}
+
+/* Hover Effects */
+.item .icon.active {
+  color: #ff7c37; /* Darker blue for hover */
+  transform: scale(1.1); /* Slight enlargement for emphasis */
+  font-weight: bold;
+}
+
+.item .text.active {
+  color: #ff4d4d; /* Text matches icon color on hover */
+  font-weight:bolder;
+}
+
+
+
+/* Mobile-First Design */
+@media (max-width: 480px) {
+  .item-content .icon {
+    font-size: 20px;
+  }
+  .item-content .text {
+    font-size: 10px;
+  }
+}

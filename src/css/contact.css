@@ -1,0 +1,123 @@
+/* الصفحة الأساسية */
+.contact-page {
+  font-family: "Poppins", sans-serif;
+  padding: 20px;
+  text-align: center;
+  background-color: #f9f9f9;
+  padding-top: 100px;
+}
+
+.contact-title {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.contact-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+/* معلومات التواصل */
+.contact-info {
+  max-width: 400px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.contact-info h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.contact-info p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* نموذج الاتصال */
+.contact-form {
+  max-width: 400px;
+  width: 100%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 100px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #ff7c37;
+}
+
+textarea {
+  resize: none;
+}
+
+.submit-btn {
+  width: 100%;
+  background-color: #ff7c37;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #e65d28;
+}
+
+/* تنبيه */
+.alert {
+  margin: 10px auto;
+  padding: 15px;
+  max-width: 500px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.alert.success {
+  background-color: #27ae60;
+}
+
+.alert.error {
+  background-color: #e74c3c;
+}

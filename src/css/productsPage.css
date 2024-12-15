@@ -1,0 +1,120 @@
+.products-page{
+  width:94vw;
+  margin: auto;
+  margin-top: 70px;
+  padding-bottom: 100px;
+}
+.products-grid{
+  display: flex;
+  flex-wrap: wrap;
+  gap:10px;
+}
+.card-n-des {
+  position: relative;
+  width: 160px;
+  height: 235px;
+  background-color: #f1f1f1;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  transition: transform 0.2s ease;
+  scroll-snap-align: start;  
+  flex: 0 0 auto;
+  animation: fadeIn 1s ease-in-out;
+
+}
+
+.heart-icon-des {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+  z-index: 5;
+}
+
+.heart-icon-des:hover {
+  transform: scale(1.1);
+}
+
+.card-n-des img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+  position: absolute;
+  top:0;
+}
+.card-n-des img {
+  transition: transform 0.3s ease-in-out;
+}
+
+.card-n-des:hover img {
+  transform: scale(1.1) translateY(-5px);
+}
+.card-n-title-des {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  position: absolute;
+  bottom: 35px;
+  color: #333;
+}
+
+.card-n-text-des {
+  font-size: 14px;
+  font-weight: 300;
+  text-align: center;
+  color: #666;
+  margin: 0px 0;
+
+}
+
+.card-n-price-des {
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  margin-bottom: 0px;
+  background: #333;
+  padding: 5px;
+  position: absolute;
+  top: 137px;
+  right: 7px;
+  cursor: pointer;
+}
+
+
+.card-n-discount-des.show {
+  font-size: 10px;
+  font-weight: 500;
+  color: white;
+  text-decoration: line-through;
+  margin-bottom: 0px;
+  background: #ff4d4d;
+  padding: 5px;
+  position: absolute;
+  top: 115px;
+  right: 7px;
+  cursor: pointer;
+}
+.card-n-discount-des.show:hover {
+  animation: bounce 0.5s;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+.hide {
+  display: none;
+}
