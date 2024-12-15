@@ -1,18 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "./firebase"; // تأكد من مسار ملف Firebase
 import "../css/carousel.css";
 
 function Carousel() {
-  const images = [
-    "/assets/images/bannar1.gif",
-    "/assets/images/bannar2.jpg",
-    "/assets/images/bannar3.jpg",
-    "/assets/images/bannar4.jpg",
-    "/assets/images/bannar5.jpg",
-  ];
+  const [images, setImages] = useState([]); // حالة لحفظ الـ URLs
+
+  useEffect(() => {
+    const fetchCarouselImages = async () => {
+      try {
+        // الوصول إلى Collection "assets"
+        const assetsCollectionRef = collection(db, "assets");
+        const snapshot = await getDocs(assetsCollectionRef);
+
+        // البحث عن carousel array في البيانات
+        const carouselData = snapshot.docs
+          .map((doc) => doc.data())
+          .find((data) => data.carousel);
+
+        if (carouselData && Array.isArray(carouselData.carousel)) {
+          setImages(carouselData.carousel); // حفظ الـ URLs في الحالة
+        } else {
+          console.warn("Carousel data not found or is not an array.");
+        }
+      } catch (error) {
+        console.error("Error fetching carousel images:", error);
+      }
+    };
+
+    fetchCarouselImages();
+  }, []);
 
   return (
     <div className="carousel-container">
