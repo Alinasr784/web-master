@@ -125,7 +125,7 @@ root.render(
   <React.StrictMode>
     <WishProvider>
       <CartProvider>
-        <Router basename="/web-master">
+        <Router>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<LoginPage />} />
