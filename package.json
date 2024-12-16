@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "homepage": "https://github.com/rouver-com/rouver.git",
+  "homepage": "https://rouver-com.github.io/rouver",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
