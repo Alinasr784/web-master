@@ -461,22 +461,31 @@ function Normal() {
                 />
                 <ul className="dropdown-menu">
                  
-                  <li>
-                    <a className="dropdown-item">
-                      <FontAwesomeIcon
-                        icon={faHeart}
-                        style={{ marginRight: "10px" }}
-                      />{" "}
-                      Wishlist
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item">
+                <li>
+                  <a className="dropdown-item" onClick={()=>navigate("/cart")}>
+                    <FontAwesomeIcon
+                      icon={faCartPlus}
+                      style={{ marginRight: "10px" }}
+                   />{" "}
+                  cart
+                 </a>
+                </li>
+                <li>
+                    <a className="dropdown-item" onClick={()=>navigate("/orders")}>
                       <FontAwesomeIcon
                         icon={faClipboardList}
                         style={{ marginRight: "10px" }}
                       />{" "}
                       Orders
+                    </a>
+                  </li>
+                  <li>
+                    <a className="dropdown-item" onClick={()=>navigate("/wish-list")}>
+                      <FontAwesomeIcon
+                        icon={faHeart}
+                        style={{ marginRight: "10px" }}
+                      />{" "}
+                      Wish list
                     </a>
                   </li>
                 </ul>
