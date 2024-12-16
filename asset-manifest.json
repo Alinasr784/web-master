@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/rouver-com/web-master.git/static/css/main.e7a6d299.css",
+    "main.js": "/rouver-com/web-master.git/static/js/main.131b177d.js",
+    "index.html": "/rouver-com/web-master.git/index.html",
+    "main.e7a6d299.css.map": "/rouver-com/web-master.git/static/css/main.e7a6d299.css.map",
+    "main.131b177d.js.map": "/rouver-com/web-master.git/static/js/main.131b177d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e7a6d299.css",
+    "static/js/main.131b177d.js"
+  ]
+}
