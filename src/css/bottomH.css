@@ -14,6 +14,7 @@
   align-items: center;
   padding: 8px 0; /* Slight padding for better aesthetics */
   border: 1px solid #e0e0e0; /* Subtle border for refinement */
+  animation: slideInUp 0.5s ease; /* Animation for the header */
 }
 
 /* Container for Items */
@@ -37,6 +38,11 @@
   align-items: center;
   color: #6c757d; /* Neutral text color */
   font-size: 12px;
+  animation: fadeIn 0.6s ease-in-out; /* Animation for fade-in effect */
+}
+
+.item-content:hover {
+  animation: bounce 0.6s ease-in-out; /* Bounce effect on hover */
 }
 
 .item-content .icon {
@@ -61,10 +67,69 @@
 
 .item .text.active {
   color: #ff4d4d; /* Text matches icon color on hover */
-  font-weight:bolder;
+  font-weight: bolder;
 }
 
+/* Highlighted Effect */
+.icon.highlighted {
+  color: #ff7c37;
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
 
+/* Keyframes Animations */
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #ff7c37, 0 0 20px #ff7c37;
+  }
+  to {
+    text-shadow: 0 0 20px #ffae5f, 0 0 30px #ffae5f;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Rotation for Icons */
+.item-content:hover .icon {
+  animation: rotate 1s linear;
+}
 
 /* Mobile-First Design */
 @media (max-width: 480px) {

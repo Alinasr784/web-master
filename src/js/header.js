@@ -453,7 +453,7 @@ function Normal() {
             {user ? (
               <div className="meAvatar dropdown">
                 <img
-                  src=`${}`
+                  src={profileImg}
                   alt="Profile"
                   className="dropdown-toggle"
                   data-bs-toggle="dropdown"
