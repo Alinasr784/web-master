@@ -112,7 +112,7 @@ function Product() {
   }
 
   // استخراج البيانات من المنتج
-  const { images = [], title = "No Title", description = "No Description", price = "0" } = product;
+  const { images = [], title = "No Title", des = "No Description", price = "0" } = product;
 
   const handleBuyNow = () => {
     navigate("/checkout", {
@@ -187,7 +187,7 @@ function Product() {
         {/* الوصف */}
         <div className="product-description">
           <h2>Description</h2>
-          <p>{description}</p>
+          <p>{des}</p>
         </div>
 
         {/* أزرار الحركة */}

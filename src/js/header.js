@@ -23,6 +23,8 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "../css/header.css";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { db } from "./firebase"; // تأكد من مسار Firebase الصحيح
+
 import {
   getFirestore,
   doc,
@@ -50,6 +52,7 @@ function Normal() {
   const { wish } = useWish();
   const [lastCart, setLastCart] = useState(cart.length);
   const [lastWish, setLastWish] = useState(wish.length);
+  const [profileImg,setProfileImg]=useState("")
   useEffect(() => {
     const auth = getAuth();
     const db = getFirestore();
@@ -82,6 +85,34 @@ function Normal() {
     });
 
     return () => unsubscribe();
+  }, []);
+  
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const docRef = doc(db, "assets", "images");
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data(); // جلب البيانات
+          console.log("Document Data: ", data);
+
+          // تحقق من وجود الحقل 'carousel' وأنه من النوع array
+          if (data.proimg){
+            console.log("Valid 'carousel' array found: ", data.proimg);
+            setProfileImg(data.proimg); // تحديث الصور
+          } else {
+            console.error("Invalid 'carousel' array in the document!");
+          }
+        } else {
+          console.error("No such document found!");
+        }
+      } catch (error) {
+        console.error("Error fetching images: ", error.message);
+      }
+    };
+
+    fetchImages();
   }, []);
 
   useEffect(() => {
@@ -422,7 +453,7 @@ function Normal() {
             {user ? (
               <div className="meAvatar dropdown">
                 <img
-                  src="/assets/images/Profile.png"
+                  src=`${}`
                   alt="Profile"
                   className="dropdown-toggle"
                   data-bs-toggle="dropdown"
