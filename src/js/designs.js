@@ -173,35 +173,37 @@ function BootCard(props) {
   }, [props.id]);
 
   return (
-    <Link to={`/product/${props.id}`}>
-
-    <div className="card-n-des">
-      <div
-        className={`card-n-wish-des heart-icon-des ${isInWish ? "disabled" : "active"}`}
-        onClick={handleAddToWish}
-      >
-        <FontAwesomeIcon
-          icon={faHeart}
-          style={{ color: isInWish ? "#ff4d4d" : "#555" }}
-        />
-      </div>
-      <img src={props.img} alt={props.name} />
-      <div className="card-n-title-des">{props.name}</div>
-      <div
-        className={`card-n-discount-des ${props.discount ? "show" : "hide"}`}
-      >
-        {props.discount} EGP
-      </div>
-      <div className="card-n-price-des">{props.price} EGP</div>
-      <div className="card-n-btns-des">
+    <Link 
+      to={`/product/${props.id}`} 
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+    >
+      <div className="card-n-des">
         <div
-          className={`card-n-cart-des ${isInCart ? "disabled" : "active"}`}
-          onClick={handleAddToCart}
+          className={`card-n-wish-des heart-icon-des ${isInWish ? "disabled" : "active"}`}
+          onClick={handleAddToWish}
         >
-          {isInCart ? "Added" : "Add To Cart"}
+          <FontAwesomeIcon
+            icon={faHeart}
+            style={{ color: isInWish ? "#ff4d4d" : "#555" }}
+          />
+        </div>
+        <img src={props.img} alt={props.name} />
+        <div className="card-n-title-des">{props.name}</div>
+        <div
+          className={`card-n-discount-des ${props.discount ? "show" : "hide"}`}
+        >
+          {props.discount} EGP
+        </div>
+        <div className="card-n-price-des">{props.price} EGP</div>
+        <div className="card-n-btns-des">
+          <div
+            className={`card-n-cart-des ${isInCart ? "disabled" : "active"}`}
+            onClick={handleAddToCart}
+          >
+            {isInCart ? "Added" : "Add To Cart"}
+          </div>
         </div>
       </div>
-    </div>
     </Link>
   );
 }
