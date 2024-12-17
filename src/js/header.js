@@ -444,7 +444,7 @@ function Normal() {
               </div>
             ) : (
               <div className={`logo ${logoVisible ? "show" : "hide"}`}>
-                ROUVER
+                VIPER
               </div>
             )}
           </div>
@@ -507,7 +507,7 @@ function Normal() {
               backdropClassName="Offcanvas"
             >
               <Offcanvas.Header>
-                <Offcanvas.Title className="navTitle">ROUVER</Offcanvas.Title>
+                <Offcanvas.Title className="navTitle">VIPER</Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <div className="offBody">
