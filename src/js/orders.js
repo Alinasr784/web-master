@@ -7,6 +7,7 @@ import "../css/orders.css";
 function Orders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [brand, setBrand] = useState("VIPER")
 
   const fetchOrders = async (userId) => {
     try {
