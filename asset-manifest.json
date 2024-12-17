@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/rouver/static/css/main.110a6d35.css",
-    "main.js": "/rouver/static/js/main.d55f121b.js",
+    "main.js": "/rouver/static/js/main.efce90c9.js",
     "index.html": "/rouver/index.html",
     "main.110a6d35.css.map": "/rouver/static/css/main.110a6d35.css.map",
-    "main.d55f121b.js.map": "/rouver/static/js/main.d55f121b.js.map"
+    "main.efce90c9.js.map": "/rouver/static/js/main.efce90c9.js.map"
   },
   "entrypoints": [
     "static/css/main.110a6d35.css",
-    "static/js/main.d55f121b.js"
+    "static/js/main.efce90c9.js"
   ]
 }
