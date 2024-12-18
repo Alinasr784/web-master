@@ -1,0 +1,191 @@
+/* الصفحة العامة */
+.ordersum-page {
+  font-family: "Poppins", sans-serif;
+  padding: 20px;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  padding-bottom: 100px;
+  padding-top:70px;
+  
+}
+
+/* العنوان */
+.checkout-title {
+  font-size: 2.5rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* الحاوية الرئيسية */
+.ordersum-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* قائمة المنتجات */
+.ordersum-products {
+  flex: 1 1 60%;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.ordersum-products h2 {
+  font-size: 1.8rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.product-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.product-item {
+  display: grid;
+  grid-template-columns: 80px 1fr 100px;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+  margin-bottom: 10px;
+}
+
+.product-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.product-name {
+  font-size: 1rem;
+  color: #333;
+}
+
+.product-price {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #27ae60;
+  text-align: right;
+}
+
+.no-products {
+  font-size: 1rem;
+  color: #888;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* ملخص الطلب */
+.ordersum-summary {
+  width: 100%;
+  max-width: 500px;
+  margin: 20px auto;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.summary-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.summary-details {
+  margin-bottom: 25px;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.summary-label {
+  font-weight: 500;
+}
+
+.summary-value {
+  font-weight: bold;
+}
+
+.total-price {
+  font-size: 1.5rem;
+  color: #27ae60;
+}
+
+.place-order-btn {
+  background: #ff7c37;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.place-order-btn:hover {
+  background: #ff4d4d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.custom-alert {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  z-index: 1000;
+  padding: 15px 20px;
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.4s ease, fadeOut 5s ease 4s forwards;
+}
+
+.custom-alert.success {
+  background-color: #27ae60;
+}
+
+.custom-alert.error {
+  background-color: #e74c3c;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}

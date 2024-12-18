@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { CartProvider } from "./js/cartContext";
 import { WishProvider } from "./js/wishListContext";
 import Header from "./js/header";
@@ -13,6 +13,7 @@ import Product from "./js/product.js";
 import "./css/home.css";
 import CartPage from "./js/cartPage.js"
 import WishListPage from "./js/wishListPage.js"
+import OrderSum from "./js/ordersum.js";
 import Checkout from "./js/checkout.js";
 import Thanks from "./js/thanks.js";
 import ProductsPage from "./js/productsPage.js";
@@ -91,11 +92,11 @@ function ProductPage (){
   )
 }
 
-function CheckoutF (){
+function OrderSumF (){
   return(
     <>
       <Header/>
-      <Checkout/>
+      <OrderSum/>
       <BottomH/>
     </>
   )
@@ -121,6 +122,16 @@ function ContactUs(){
   )
 }
 
+function CheckoutF(){
+  return(
+    <>
+      <Header/>
+      <Checkout/>
+      <BottomH/>
+    </>
+  )
+}
+
 root.render(
   <React.StrictMode>
     <WishProvider>
@@ -134,9 +145,10 @@ root.render(
             <Route path="/wish-list" element={<WishPage />} />
             <Route path="/orders" element={<OrdersPage/>}/>
             <Route path="/product/:id" element={<ProductPage/>}/>
-            <Route path="/checkout" element={<CheckoutF/>}/>
-            <Route path="/thankyou" element={<ThanksPage/>}/>
+            <Route path="/your-order" element={<OrderSumF/>}/>
+            <Route path="/thank-you" element={<ThanksPage/>}/>
             <Route path="/contact" element={<ContactUs/>}/>
+            <Route path="/checkout" element={<CheckoutF/>}/>
           </Routes>
         </Router>
       </CartProvider>

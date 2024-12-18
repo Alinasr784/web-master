@@ -115,7 +115,7 @@ function Product() {
   const { images = [], title = "No Title", des = "No Description", price = "0" } = product;
 
   const handleBuyNow = () => {
-    navigate("/checkout", {
+    navigate("/your-order", {
       state: {
         products: [
           {

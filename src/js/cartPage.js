@@ -233,7 +233,7 @@ function CartPage() {
             <button
               className="checkout-btn"
               onClick={() =>
-                navigate("/checkout", {
+                navigate("/your-order", {
                   state: { products, totalPrice }, // إرسال البيانات
                 })
               }
